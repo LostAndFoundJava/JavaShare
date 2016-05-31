@@ -1,0 +1,1735 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0045)http://www.aboutyun.com/thread-17420-1-1.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+<title>Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发   </title>
+<link href="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发.htm" rel="canonical">
+<meta name="keywords" content="hadoop学习视频、文档，storm 入门视频、文档，spark 入门视频、文档，zookeeper，hive，hbase,，kafka,cloudera CDH,flume,云技术，大数据，云计算框架，数据挖掘，云开发技术，大数据，百度云，移动云开发，云平台，hadoop，Nosql,虚拟化，OpenStack">
+<meta name="description" content="about云开发大数据（hadoop系列）学习模块中Java HashMap工作原理及实现是为了解决云开发技术，为大家提供云技术、大数据文档，视频、学习指导，解疑等。 ">
+<meta name="generator" content="Discuz! X3.2">
+<meta name="author" content="Discuz! Team and Comsenz UI Team">
+<meta name="copyright" content="2001-2013 Comsenz Inc.">
+<meta name="MSSmartTagsPreventParsing" content="True">
+<meta http-equiv="MSThemeCompatible" content="Yes">
+<!--<base href="http://www.aboutyun.com/">--><base href="."><link rel="stylesheet" type="text/css" href="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/style_1_common.css"><link rel="stylesheet" type="text/css" href="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/style_1_forum_viewthread.css"><script type="text/javascript" charset="utf-8" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/MjgwMDM4MjU=.js"></script><script type="text/javascript">var STYLEID = '1', STATICURL = 'static/', IMGDIR = 'static/image/common', VERHASH = 'iiW', charset = 'gbk', discuz_uid = '0', cookiepre = 'HWe7_2132_', cookiedomain = '', cookiepath = '/', showusercard = '1', attackevasive = '0', disallowfloat = 'login|sendpm|newthread|reply|viewratings|viewwarning|viewthreadmod|viewvote|tradeorder|activity|debate|nav|usergroups|task', creditnotice = '1|威望|,2|云币|,3|贡献|', defaultstyle = '', REPORTURL = 'aHR0cDovL3d3dy5hYm91dHl1bi5jb20vZm9ydW0ucGhwP21vZD12aWV3dGhyZWFkJnRpZD0xNzQyMCZleHRyYT1wYWdlJTNEMSZwYWdlPTEm', SITEURL = 'http://www.aboutyun.com/', JSPATH = 'data/cache/', CSSPATH = 'data/cache/style_', DYNAMICURL = '';</script><style></style>
+<script src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/common.js" type="text/javascript"></script>
+<meta name="application-name" content="about云开发">
+<meta name="msapplication-tooltip" content="about云开发">
+<meta name="msapplication-task" content="name=咨询;action-uri=http://www.aboutyun.com/portal.php;icon-uri=http://www.aboutyun.com/static/image/common/portal.ico"><meta name="msapplication-task" content="name=论坛|社区;action-uri=http://www.aboutyun.com/forum.php;icon-uri=http://www.aboutyun.com/static/image/common/bbs.ico">
+<meta name="msapplication-task" content="name=群组;action-uri=http://www.aboutyun.com/group.php;icon-uri=http://www.aboutyun.com/static/image/common/group.ico"><meta name="msapplication-task" content="name=;action-uri=http://www.aboutyun.com/home.php;icon-uri=http://www.aboutyun.com/static/image/common/home.ico"><link rel="archives" title="about云开发" href="http://www.aboutyun.com/archiver/">
+<script src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/forum.js" type="text/javascript"></script>
+</head>
+
+<body id="nv_forum" class="pg_viewthread" onkeydown="if(event.keyCode==27) return false;"><script charset="utf-8" async="" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/api.php"></script><a style="width: 92px; height: 22px; background-image: url(http://open.t.qq.com/apps/qshare/images/icon.gif); background-color: rgb(255, 0, 0); position: absolute; display: none; left: 803px; top: 9471px; z-index: 999999; background-position: initial initial; background-repeat: no-repeat no-repeat;" href="javascript:;"></a>
+<div id="append_parent"><div id="ls_fastloginfield_ctrl_menu" class="sltm" style="display: none; width: 40px;"><ul><li class="current">用户名</li><li>Email</li></ul></div></div><div id="ajaxwaitid"></div>
+<div id="toptb" class="cl">
+<div class="wp">
+<div class="z"><a href="javascript:;" onclick="setHomepage(&#39;http://www.aboutyun.com/&#39;);">设为首页</a><a href="http://www.aboutyun.com/" onclick="addFavorite(this.href, &#39;about云开发&#39;);return false;">收藏本站</a><script type="text/javascript">var _speedMark = new Date();</script></div>
+<div class="y">
+<a id="switchblind" href="javascript:;" onclick="toggleBlind(this)" title="开启辅助访问" class="switchblind">开启辅助访问</a>
+<a href="javascript:;" id="switchwidth" onclick="widthauto(this)" title="切换到宽版" class="switchwidth">切换到宽版</a>
+</div>
+</div>
+</div>
+
+<div id="qmenu_menu" class="p_pop blk" style="display: none;">
+<div class="ptm pbw hm">
+请 <a href="javascript:;" class="xi2" onclick="lsSubmit()"><strong>登录</strong></a> 后使用快捷导航<br>没有帐号？<a href="http://www.aboutyun.com/member.php?mod=register" class="xi2 xw1">立即注册</a>
+</div>
+<div id="fjump_menu" class="btda"></div></div><div id="hd">
+<div class="wp">
+<div class="hdc cl"><h2><a href="http://www.aboutyun.com/" title="about云开发"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/logo.png" alt="about云开发" border="0"></a></h2><script src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/logging.js" type="text/javascript"></script>
+<form method="post" autocomplete="off" id="lsform" action="http://www.aboutyun.com/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes" onsubmit="return lsSubmit();">
+<div class="fastlg cl">
+<span id="return_ls" style="display:none"></span>
+<div class="y pns">
+<table cellspacing="0" cellpadding="0">
+<tbody><tr>
+<td>
+<span class="ftid">
+<select name="fastloginfield" id="ls_fastloginfield" width="40" tabindex="900" selecti="0" style="display: none;">
+
+
+<option value="username"></option></select><a href="javascript:;" id="ls_fastloginfield_ctrl" style="width:40px" tabindex="900">用户名</a>
+</span>
+<script type="text/javascript">simulateSelect('ls_fastloginfield')</script>
+</td>
+<td><input type="text" name="username" id="ls_username" autocomplete="off" class="px vm" tabindex="901"></td>
+<td class="fastlg_l"><label for="ls_cookietime"><input type="checkbox" name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903">自动登录</label></td>
+<td>&nbsp;<a href="javascript:;" onclick="showWindow(&#39;login&#39;, &#39;member.php?mod=logging&amp;action=login&amp;viewlostpw=1&#39;)">找回密码</a></td>
+</tr>
+<tr>
+<td><label for="ls_password" class="z psw_w">密码</label></td>
+<td><input type="password" name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902"></td>
+<td class="fastlg_l"><button type="submit" class="pn vm" tabindex="904" style="width: 75px;"><em>登录</em></button></td>
+<td>&nbsp;<a href="http://www.aboutyun.com/member.php?mod=register" class="xi2 xw1">立即注册</a></td>
+</tr>
+</tbody></table>
+<input type="hidden" name="quickforward" value="yes">
+<input type="hidden" name="handlekey" value="ls">
+</div>
+
+<div class="fastlg_fm y" style="margin-right: 10px; padding-right: 10px">
+<p><a href="http://www.aboutyun.com/connect.php?mod=login&op=init&referer=forum.php%3Fmod%3Dviewthread%26tid%3D17420%26extra%3Dpage%253D1%26page%3D1%26&statfrom=login_simple"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/qq_login.gif" class="vm" alt="QQ登录"></a></p>
+<p class="hm xg1" style="padding-top: 2px;">只需一步，快速开始</p>
+</div>
+
+<div class="fastlg_fm y" style="margin-right: 10px; padding-right: 10px">
+<p><a href="http://www.aboutyun.com/plugin.php?id=wechat:login"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/wechat_login.png" class="vm"></a></p>
+<p class="hm xg1" style="padding-top: 2px;">扫一扫，访问微社区</p>
+</div>
+</div>
+</form>
+
+</div>
+
+<div id="nv" style="border-left-width: 0px; border-right-width: 0px; height: 33px; width: 960px; top: 0px; left: 171px; position: fixed; z-index: 199; opacity: 0.85;">
+<a href="javascript:;" id="qmenu" onmouseover="delayShow(this, function () {showMenu({&#39;ctrlid&#39;:&#39;qmenu&#39;,&#39;pos&#39;:&#39;34!&#39;,&#39;ctrlclass&#39;:&#39;a&#39;,&#39;duration&#39;:2});showForummenu(117);})">快捷导航</a>
+<ul><li class="a" id="mn_forum"><a href="http://www.aboutyun.com/forum.php" hidefocus="true" title="BBS">论坛|社区<span>BBS</span></a></li><li id="mn_forum_10"><a href="http://www.aboutyun.com/forum.php?mod=guide" hidefocus="true" title="Guide">导读<span>Guide</span></a></li><li id="mn_home"><a href="http://www.aboutyun.com/home.php?mod=space&do=blog" hidefocus="true" title="Blog">博客<span>Blog</span></a></li><li id="mn_forum_11" onmouseover="showMenu({&#39;ctrlid&#39;:this.id,&#39;ctrlclass&#39;:&#39;hover&#39;,&#39;duration&#39;:2})"><a href="http://www.aboutyun.com/forum.php?mod=collection" hidefocus="true" title="Collection">专题<span>Collection</span></a></li><li id="mn_Nee19" onmouseover="showMenu({&#39;ctrlid&#39;:this.id,&#39;ctrlclass&#39;:&#39;hover&#39;,&#39;duration&#39;:2})"><a href="http://www.aboutyun.com/home.php" hidefocus="true">浏览</a></li><li id="mn_home_14"><a href="http://www.aboutyun.com/home.php?mod=space&do=share" hidefocus="true" title="Share">阅读分享<span>Share</span></a></li><li id="mn_group"><a href="http://www.aboutyun.com/group.php" hidefocus="true" title="Group">群组<span>Group</span></a></li><li id="mn_N5186" onmouseover="showMenu({&#39;ctrlid&#39;:this.id,&#39;ctrlclass&#39;:&#39;hover&#39;,&#39;duration&#39;:2})"><a href="http://so.aboutyun.com/" hidefocus="true">分类搜索</a></li><li id="mn_N728a"><a href="http://www.aboutyun.com/thread-5118-1-1.html" hidefocus="true">about云介绍</a></li><li id="mn_N0955" onmouseover="showMenu({&#39;ctrlid&#39;:this.id,&#39;ctrlclass&#39;:&#39;hover&#39;,&#39;duration&#39;:2})"><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4023-4627152319.4.0qf3BM&id=520413355976" hidefocus="true" target="_blank">课程</a></li></ul>
+</div>
+<ul class="p_pop h_pop" id="mn_N12a7_menu" style="display: none"><li><a href="http://www.aboutyun.com/misc.php?mod=ranklist&type=thread&view=views&orderby=today" hidefocus="true">今日排行</a></li><li><a href="http://www.aboutyun.com/misc.php?mod=ranklist&type=thread&view=views&orderby=thisweek" hidefocus="true">本周排行</a></li><li><a href="http://www.aboutyun.com/misc.php?mod=ranklist&type=thread&view=heats&orderby=thisweek" hidefocus="true">本周热帖</a></li><li><a href="http://www.aboutyun.com/misc.php?mod=ranklist&type=thread&view=views&orderby=thismonth" hidefocus="true">本月排行</a></li><li><a href="http://www.aboutyun.com/misc.php?mod=ranklist&type=thread&view=heats&orderby=thismonth" hidefocus="true">本月热帖</a></li><li><a href="http://www.aboutyun.com/misc.php?mod=ranklist&type=member&view=onlinetime" hidefocus="true">会员排行</a></li></ul><ul class="p_pop h_pop" id="mn_forum_11_menu" style="display: none"><li><a href="http://www.aboutyun.com/forum.php?mod=collection" hidefocus="true">推荐专题</a></li><li><a href="http://www.aboutyun.com/forum.php?mod=collection&op=all" hidefocus="true">所有专题</a></li><li><a href="http://www.aboutyun.com/forum.php?mod=collection&op=my" hidefocus="true">创建专题</a></li></ul><ul class="p_pop h_pop" id="mn_Nee19_menu" style="display: none"><li><a href="http://www.aboutyun.com/home.php" hidefocus="true">家园</a></li><li><a href="http://www.aboutyun.com/home.php?mod=space&do=share&view=all" hidefocus="true">阅读分享</a></li><li><a href="http://www.aboutyun.com/misc.php?mod=ranklist" hidefocus="true">排行</a></li><li><a href="http://www.aboutyun.com/home.php?mod=follow" hidefocus="true">广播</a></li></ul><div class="p_pop h_pop" id="mn_userapp_menu" style="display: none"></div><ul class="p_pop h_pop" id="mn_N5186_menu" style="display: none"><li><a href="http://www.aboutyun.com/search.php?mod=forum" hidefocus="true" target="_blank">搜帖子</a></li><li><a href="http://www.aboutyun.com/search.php?mod=blog" hidefocus="true">搜日志</a></li><li><a href="http://so.aboutyun.com/" hidefocus="true">智能搜索</a></li></ul><ul class="p_pop h_pop" id="mn_N0955_menu" style="display: none"><li><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4023-4627152319.4.0qf3BM&id=520413355976" hidefocus="true" target="_blank">大数据零基础入门到实战</a></li><li><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-4627152322.29.zC4mNG&id=522548227466" hidefocus="true" target="_blank">openstack【kilo】系统入门视频</a></li></ul><div id="mu" class="cl">
+<ul class="cl " id="snav_mn_userapp" style="display:none">
+</ul>
+</div><div class="a_mu">	<style>
+.archy_twoad {
+	width: 958px;
+	border: 1px solid #dfdfdf;
+	border-top-width: 0;
+	height: 50px;
+	padding-top: 6px;
+	overflow: hidden;
+}
+
+.archy_twoadc {
+	padding-left: 5px;
+}
+
+.archy_twoadc li {
+	display: inline;
+}
+
+.archy_twoadc a {
+	color: #0072bc;
+	display: inline-block;
+	padding: 0 5px;
+	text-decoration: none;
+	font-size: 12px;
+}
+
+.ie_all .archy_twoadc a {
+	padding: 0 4px;
+}
+
+.archy_twoadc a:hover {
+	font-size: 12px;
+	text-decoration: underline;
+}
+</style>
+	<div class="archy_twoad">
+		<table cellspacing="0" cellpadding="0" border="0" align="center">
+			<tbody><tr class="archy_twoadc">
+				<td>
+					<li><a href="http://www.aboutyun.com/forum.php?mod=guide&view=hot"><font color="red">最新热门</font></a>
+				</li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum.php?mod=guide&view=new">最新回复</a>
+				</li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum.php?mod=guide&view=newthread">最新发表
+
+					</a></li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-144-1.html">面试题</a>
+				</li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-156-1.html">项目区</a>
+				</li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-78-1.html"><font color="red">hadoop资源
+
+</font></a>
+				</li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-113-1.html"><font color="red">openstack
+
+资源</font></a>
+				</li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum.php?mod=collection&action=view&ctid=5">
+
+<font color="red">新手指导</font>
+
+					</a></li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum.php?mod=collection&action=view&ctid=3&fromop=all">环境搭建</a>
+				</li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-83-1.html">休闲阅读目</a>
+				</li>
+				</td>
+				<td>
+					
+					<li><a href="http://www.aboutyun.com/forum-53-1.html">hadoop疑问</a>
+				</li>
+
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-74-1.html">openstack疑问</a>
+				</li>
+				</td>
+				<td>
+
+					<li><a href="http://www.aboutyun.com/forum-90-1.html">移动云</a></li>
+
+				</td>
+<td>
+
+					<li><a href="http://www.aboutyun.com/forum-57-1.html">百度云</a></li>
+
+				</td>
+
+<td>
+
+					<li><a href="http://www.aboutyun.com/forum-58-1.html">微软云</a></li>
+
+				</td>
+
+			</tr>
+			<tr height="8px">
+				<td cols="13"></td>
+			</tr>
+			<tr class="archy_twoadc">
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-150-1.html">storm区</a>
+				</li>
+				</td>
+				<td>
+
+					<li><a href="http://www.aboutyun.com/forum-159-1.html">CDH区</a>
+				</li>
+				</td>
+				
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-142-1.html">hbase区
+
+					</a></li>
+				</td>
+				<td>
+
+					<li><a href="http://www.aboutyun.com/forum-160-1.html">pig区</a>
+				</li>
+				
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-148-1.html">hive区</a>
+				</li>
+				</td>
+					<td>
+					<li><a href="http://www.aboutyun.com/forum-147-1.html">sqoop区</a>
+				</li>
+				</td>
+				<td>
+
+					<li><a href="http://www.aboutyun.com/forum-143-1.html">hadoop2|YARN</a>
+				</li>
+				</td>
+			
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-146-1.html">spark区
+
+					</a></li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-145-1.html">flume区</a>
+				</li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-149-1.html">ZooKeeper区</a>
+				</li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-101-1.html"><font color="red">hadoop架构
+
+</font></a>
+				</li>
+				</td>
+				<td>
+					<li><a href="http://www.aboutyun.com/forum-140-1.html">mapreduce区</a>
+				</li>
+				</td>
+				<td>
+
+					<li><a href="http://www.aboutyun.com/forum.php?mod=collection&action=view&ctid=7">
+
+错误汇总</a>
+				</li>
+				</td>
+<td>
+
+					<li><a href="http://www.aboutyun.com/forum-84-1.html">灵云</a></li>
+
+				</td>
+
+<td>
+
+					<li><a href="http://www.aboutyun.com/forum-76-1.html">PAAS区</a></li>
+
+				</td>
+			</tr>
+		</tbody></table>
+	</div>
+<script type="text/javascript">
+    /*960*60 创建于 2015-03-17*/
+    var cpro_id = "u1993018";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div><div id="scbar" class="cl">
+<form id="scbar_form" method="get" autocomplete="off" onsubmit="searchFocus($(&#39;scbar_txt&#39;))" action="http://so.aboutyun.com/cse/search" target="_blank">
+<input type="hidden" name="s" value="18335994984162479371">
+<input type="hidden" name="ie" value="gbk">
+
+
+<table cellspacing="0" cellpadding="0">
+<tbody><tr>
+<td class="scbar_icon_td"></td>
+<td class="scbar_txt_td"><input type="text" name="q" id="scbar_txt" value="请输入搜索内容" autocomplete="off" x-webkit-speech="" speech="" class=" xg1" placeholder="请输入搜索内容"></td>
+
+<td class="scbar_btn_td"><button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true"><strong class="xi2">搜索</strong></button></td>
+<td class="scbar_hot_td">
+<div id="scbar_hot">
+</div>
+</td>
+</tr>
+</tbody></table>
+</form>
+</div>
+<ul id="scbar_type_menu" class="p_pop" style="display: none;"><li><a href="javascript:;" rel="curforum" fid="117">本版</a></li><li><a href="javascript:;" rel="article">文章</a></li><li><a href="javascript:;" rel="forum" class="curtype">帖子</a></li><li><a href="javascript:;" rel="group">群组</a></li><li><a href="javascript:;" rel="user">用户</a></li></ul>
+<script type="text/javascript">
+initSearchmenu('scbar', '');
+</script>
+</div>
+</div>
+
+<script>
+var aliyun_recommend_opts={
+'url':'http://www.aboutyun.com/thread-17420-1-1.html',
+'title':'Java HashMap工作原理及实现',
+'thumb':'http://www.aboutyun.com/data/attachment/forum/201602/24/134722zenz5z5zel0lmiux.png',
+'reserved1':'THh1HMVunwXkLdSFIjG17lEsFAsAF0gKCEMFKUUccVBbTw0MHhcMB30RBzIEDQ0JEBwfWFNmUlQiCwkKDUgkExMCYGlAMwkhCAmQ2deB3tzEr9,G_O,c,uSXy_2nr5FmBQ0dHBkHHABecRUUdlNVWkhNWVQJAjNVUS8SGFRIQVtEV1pzEBl3RxoAHAIdT11QZlNEMA0FDApIXlQBCidEUjRcXE8LFBoXWFNmUlElAgUIFUheVBYXKUJKMgQcBQBIXlQXBiNOTC0EAg0KSF5UFwYjTkwtBAINJhQKFlhTZlNEIw4BBBwbCi0WFiIcEWYJCQgNBlNCQwozRlMvFBxUSVMIExMXKUxEM1xcTwodDwAAFylMRDNcXE8KAQ8fFV5tEAcwFB8BHBEPGwFecA..'
+};
+</script><style type="text/css">
+@import url('http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.83');
+@import url('http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/styles/shCoreDefault.css?ver=3.0.83');
+@import url('http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.83');
+.syntaxhighlighter,
+.syntaxhighlighter a,
+.syntaxhighlighter div,
+.syntaxhighlighter code,
+.syntaxhighlighter table,
+.syntaxhighlighter table td,
+.syntaxhighlighter table tr,
+.syntaxhighlighter table tbody,
+.syntaxhighlighter table thead,
+.syntaxhighlighter table caption,
+.syntaxhighlighter textarea {
+font-size: 12px !important; /* Set the font size in pixels */
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */
+}
+.syntaxhighlighter table caption {
+/* For Title(Caption) */
+font-size: 14px !important; /* Set the font size in pixels */
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */
+}
+.syntaxhighlighter.nogutter td.code .line {
+/* Set the left padding space when no-gutter in ver. 3.0 */
+padding-left: 3px !important;
+}
+
+.syntaxhighlighter .lines {
+	padding: 5px 0px 5px 0px !important;
+}
+.syntaxhighlighter .line .number {
+	padding: 5px 5px 5px 0 !important;
+}
+.syntaxhighlighter .line .content {
+	padding: 5px 0px 5px 10px !important;
+}
+
+/* For gutter */
+.syntaxhighlighter table td.code {
+width:auto !important;
+}
+.syntaxhighlighter table td.gutter .line {
+padding: 0 0.5em !important;
+}
+.syntaxhighlighter .gutter {
+width: 40px !important;
+}
+
+.syntaxhighlighter table td.gutter .line {
+	padding: 5px 5px 5px 0 !important;
+}
+.syntaxhighlighter table td.code .line {
+	padding: 5px 0px 5px 10px !important;
+}
+
+.syntaxhighlighter {
+/* For Chrome/Safari(WebKit) */
+/* Hide the superfluous vertical scrollbar in ver. 3.0 */
+/*overflow-y: hidden !important;*/
+padding: 1px !important;
+}
+
+.syntaxhighlighter {
+	width: 99.7% !important;
+	max-height: 600px !important;
+	height:expression(this.scrollHeight > 600 ? "600px" : "auto");
+	overflow-y: auto;
+}
+
+/* For Title(Caption) */
+font-size: 10px !important; /* Set the font size in pixels */
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */
+}
+</style>
+
+<div id="wp" class="wp">
+<script type="text/javascript">var fid = parseInt('117'), tid = parseInt('17420');</script>
+
+<script src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/forum_viewthread.js" type="text/javascript"></script>
+<script type="text/javascript">zoomstatus = parseInt(1);var imagemaxwidth = '600';var aimgcount = new Array();</script>
+
+<style id="diy_style" type="text/css"></style>
+<!--[diy=diynavtop]--><div id="diynavtop" class="area"></div><!--[/diy]-->
+<div id="pt" class="bm cl">
+<div class="z">
+<a href="http://www.aboutyun.com/" class="nvhm" title="首页">about云开发</a><em>&#187;</em><a href="http://www.aboutyun.com/forum.php">论坛|社区</a> <em>&#8250;</em> <a href="http://www.aboutyun.com/forum.php?gid=46">云技术学习(版主区)</a> <em>&#8250;</em> <a href="http://www.aboutyun.com/forum-117-1.html">大数据（hadoop系列）学习</a> <em>&#8250;</em> <a href="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发.htm">Java HashMap工作原理及实现</a>
+</div>
+</div>
+
+<div class="wp a_t"><table cellpadding="0" cellspacing="1"><tbody><tr><td width="100%"><script type="text/javascript">
+var cpro_id="u1763126";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"960",rsi1:"100",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script></td></tr>
+</tbody></table></div><style id="diy_style" type="text/css"></style>
+<div class="wp">
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+
+<div id="ct" class="wp cl">
+<div id="pgt" class="pgs mbm cl ">
+<div class="pgt"></div>
+<span class="y pgb" id="visitedforums" onmouseover="$(&#39;visitedforums&#39;).id = &#39;visitedforumstmp&#39;;this.id = &#39;visitedforums&#39;;showMenu({&#39;ctrlid&#39;:this.id,&#39;pos&#39;:&#39;34&#39;})"><a href="http://www.aboutyun.com/forum-117-1.html">返回列表</a></span>
+<a id="newspecial" onmouseover="$(&#39;newspecial&#39;).id = &#39;newspecialtmp&#39;;this.id = &#39;newspecial&#39;;showMenu({&#39;ctrlid&#39;:this.id})" onclick="showWindow(&#39;newthread&#39;, &#39;forum.php?mod=post&amp;action=newthread&amp;fid=117&#39;)" href="javascript:;" title="发新帖"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/pn_post.png" alt="发新帖"></a></div>
+
+
+
+<div id="postlist" class="pl bm">
+<table cellspacing="0" cellpadding="0">
+<tbody><tr>
+<td class="pls ptn pbn">
+<div class="hm ptn">
+<span class="xg1">查看:</span> <span class="xi1">83</span><span class="pipe">|</span><span class="xg1">回复:</span> <span class="xi1">0</span>
+</div>
+</td>
+<td class="plc ptm pbn vwthd">
+<div class="y">
+<a href="http://www.aboutyun.com/forum.php?mod=viewthread&action=printable&tid=17420" title="打印" target="_blank"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/print.png" alt="打印" class="vm"></a>
+<a href="http://www.aboutyun.com/forum.php?mod=redirect&goto=nextoldset&tid=17420" title="上一主题"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/thread-prev.png" alt="上一主题" class="vm"></a>
+<a href="http://www.aboutyun.com/forum.php?mod=redirect&goto=nextnewset&tid=17420" title="下一主题"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/thread-next.png" alt="下一主题" class="vm"></a>
+</div>
+<h1 class="ts">
+<span id="thread_subject">Java HashMap工作原理及实现</span>
+</h1>
+<span class="xg1">
+<a href="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发.htm" onclick="return copyThreadUrl(this, &#39;about云开发&#39;)">[复制链接]</a>
+</span>
+</td>
+</tr>
+</tbody></table>
+
+
+<table cellspacing="0" cellpadding="0" class="ad">
+<tbody><tr>
+<td class="pls">
+</td>
+<td class="plc">
+</td>
+</tr>
+</tbody></table><div id="post_152817"><table id="pid152817" class="plhin" summary="pid152817" cellspacing="0" cellpadding="0">
+<tbody><tr>
+<td class="pls" rowspan="2">
+<div id="favatar152817" class="pls favatar" style="top: 33px; position: fixed;">
+<a name="newpost"></a> <a name="lastpost"></a><div class="pi">
+<div class="authi"><a href="http://www.aboutyun.com/space-uid-25517.html" target="_blank" class="xw1">eying</a>
+</div>
+</div>
+<div class="p_pop blk bui card_gender_0" id="userinfo152817" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo152817_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="http://www.aboutyun.com/space-uid-25517.html" target="_blank" class="xi2">eying</a></strong>
+<em>当前在线</em>
+</div><dl class="cl">
+<dt>积分</dt><dd><a href="http://www.aboutyun.com/home.php?mod=space&uid=25517&do=profile" target="_blank" class="xi2">468</a></dd>
+</dl><div class="imicn">
+<a href="http://www.aboutyun.com/home.php?mod=space&uid=25517&do=profile" target="_blank" title="查看详细资料"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/userinfo.gif" alt="查看详细资料"></a>
+<a href="http://www.aboutyun.com/home.php?mod=magic&mid=showip&idtype=user&id=eying" id="a_showip_li_152817" class="xi2" onclick="showWindow(this.id, this.href)"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/showip.small.gif" alt=""> 窥视卡</a>
+<a href="http://www.aboutyun.com/home.php?mod=magic&mid=checkonline&idtype=user&id=eying" id="a_repent_152817" class="xi2" onclick="showWindow(this.id, this.href)"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/checkonline.small.gif" alt=""> 雷达卡</a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, &#39;userinfo152817&#39;)"><a href="http://www.aboutyun.com/space-uid-25517.html" class="avtm" target="_blank"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/avatar.php"></a></div>
+</div>
+<div class="tns xg2"><table cellspacing="0" cellpadding="0"><tbody><tr><th><p><a href="http://www.aboutyun.com/home.php?mod=space&uid=25517&do=thread&type=thread&view=me&from=space" class="xi2">75</a></p>主题</th><th><p><a href="http://www.aboutyun.com/home.php?mod=space&uid=25517&do=thread&type=reply&view=me&from=space" class="xi2">81</a></p>帖子</th><td><p><a href="http://www.aboutyun.com/home.php?mod=space&uid=25517&do=profile" class="xi2">468</a></p>积分</td></tr></tbody></table></div>
+
+<p><em><a href="http://www.aboutyun.com/home.php?mod=spacecp&ac=usergroup&gid=2" target="_blank">超级版主</a></em></p>
+
+
+<p><span><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/star_level3.gif" alt="Rank: 8"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/star_level3.gif" alt="Rank: 8"></span></p>
+
+
+
+<dl class="pil cl">
+	<dt>积分</dt><dd><a href="http://www.aboutyun.com/home.php?mod=space&uid=25517&do=profile" target="_blank" class="xi2">468</a></dd>
+</dl>
+
+<dl class="pil cl"></dl><ul class="xl xl2 o cl">
+<li class="addflw">
+<a href="http://www.aboutyun.com/home.php?mod=spacecp&ac=follow&op=add&hash=7ba6d723&fuid=25517" id="followmod_25517" title="收听TA" class="xi2" onclick="showWindow(&#39;followmod&#39;, this.href, &#39;get&#39;, 0);">收听TA</a>
+</li>
+<li class="pm2"><a href="http://www.aboutyun.com/home.php?mod=spacecp&ac=pm&op=showmsg&handlekey=showmsg_25517&touid=25517&pmid=0&daterange=2&pid=152817&tid=17420" onclick="showWindow(&#39;sendpm&#39;, this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</div>
+</td>
+<td class="plc">
+<div class="pi">
+<div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$(&#39;fj_btn&#39;).href=&#39;forum.php?mod=redirect&amp;ptid=17420&amp;authorid=0&amp;postno=&#39;+this.value" onkeydown="if(event.keyCode==13) {window.location=$(&#39;fj_btn&#39;).href;return false;}" title="跳转到指定楼层">
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/fj_btn.png" alt="跳转到指定楼层" class="vm"></a>
+</div>
+<strong>
+<a href="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发.htm" id="postnum152817" onclick="setCopy(this.href, &#39;帖子地址复制成功&#39;);return false;">
+楼主</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon152817" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/online_supermod.gif">
+<em id="authorposton152817">发表于 <span title="2016-2-24 13:53:07">2&nbsp;小时前</span></em>
+<span class="pipe">|</span>
+<a href="http://www.aboutyun.com/forum.php?mod=viewthread&tid=17420&page=1&authorid=25517" rel="nofollow">只看该作者</a>
+<span class="pipe">|</span><a href="http://www.aboutyun.com/forum.php?mod=viewthread&tid=17420&from=album">只看大图</a>
+<span class="none"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/arw_r.gif" class="vm" alt="回帖奖励"></span>
+<span class="pipe show">|</span><a href="http://www.aboutyun.com/forum.php?mod=viewthread&tid=17420&extra=page%3D1&ordertype=1" class="show">倒序浏览</a>
+<span class="pipe show">|</span><a href="javascript:;" onclick="readmode($(&#39;thread_subject&#39;).innerHTML, 152817);" class="show">阅读模式</a>
+</div>
+</div>
+</div><div class="pct"><div class="a_pt"><a href="http://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-4627152322.23.yxVrRI&id=520413355976" target="_blank" style="font-size: 12px"><font color="#ff0000"><b>大数据系列零基础由入门到实战视频</b></font></a></div><style type="text/css">.pcb{margin-right:0}</style><div class="pcb">
+ 
+<div class="t_fsz">
+<style type="text/css">#pid152817{background-image:url("static/image/postbg/bg10.png");}</style><table cellspacing="0" cellpadding="0"><tbody><tr><td class="t_f" id="postmessage_152817">
+<div class="a_pr" style="margin-left:10px;width:auto"><script type="text/javascript">
+    /*120*240 主题链接创建于 2014-09-22*/
+    var cpro_id = "u1728839";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div><i class="pstatus"> 本帖最后由 eying 于 2016-2-24 13:55 编辑 </i><br>
+<div align="left"><strong>问题导读：</strong></div><br>
+<br>
+<br>
+<strong><font color="#ff0000">1.什么时候会使用HashMap？他有什么特点？<br>
+2.你知道HashMap的工作原理吗？<br>
+3.你知道get和put的原理吗？equals()和hashCode()的都有什么作用？</font></strong><br>
+<br>
+<div align="left"><img id="aimg_Bz76f" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" file="static/image/hrline/4.gif" onmouseover="img_onmouseoverfunc(this)" lazyloadthumb="1" border="0" alt="" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/4.gif" lazyloaded="true" width="500" height="35"><br>
+<br>
+</div><br>
+<br>
+<br>
+<br>
+<br>
+<font size="5"><strong>1.概述</strong></font><br>
+<br>
+<div align="left">当我们执行下面的操作时：</div><br>
+<div align="left"><div style="padding:15px 0;"><div style="font-size:12px;">[AppleScript] <em class="viewsource" style="cursor:pointer;font-size:12px;color:#369 !important;" num="0">纯文本查看</em> <em class="copycode" style="cursor:pointer;font-size:12px;color:#369 !important;" num="0">复制代码</em></div><div><div id="highlighter_570803" class="syntaxhighlighter notranslate applescript"><div class="toolbar"><span><a href="http://www.aboutyun.com/#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">01</div><div class="line number2 index1 alt1">02</div><div class="line number3 index2 alt2">03</div><div class="line number4 index3 alt1">04</div><div class="line number5 index4 alt2">05</div><div class="line number6 index5 alt1">06</div><div class="line number7 index6 alt2">07</div><div class="line number8 index7 alt1">08</div><div class="line number9 index8 alt2">09</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="applescript plain">HashMap</code><code class="applescript color2">&lt;</code><code class="applescript plain">String</code><code class="applescript color1">,</code> <code class="applescript plain">Integer</code><code class="applescript color2">&gt;</code> <code class="applescript plain">map </code><code class="applescript color2">=</code> <code class="applescript color3">new</code> <code class="applescript plain">HashMap</code><code class="applescript color2">&lt;</code><code class="applescript plain">String</code><code class="applescript color1">,</code> <code class="applescript plain">Integer</code><code class="applescript color2">&gt;</code><code class="applescript color1">(</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number2 index1 alt1"><code class="applescript plain">map.put</code><code class="applescript color1">(</code><code class="applescript string">"语文"</code><code class="applescript color1">,</code> <code class="applescript color1">1</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number3 index2 alt2"><code class="applescript plain">map.put</code><code class="applescript color1">(</code><code class="applescript string">"数学"</code><code class="applescript color1">,</code> <code class="applescript color1">2</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number4 index3 alt1"><code class="applescript plain">map.put</code><code class="applescript color1">(</code><code class="applescript string">"英语"</code><code class="applescript color1">,</code> <code class="applescript color1">3</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number5 index4 alt2"><code class="applescript plain">map.put</code><code class="applescript color1">(</code><code class="applescript string">"历史"</code><code class="applescript color1">,</code> <code class="applescript color1">4</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number6 index5 alt1"><code class="applescript plain">map.put</code><code class="applescript color1">(</code><code class="applescript string">"政治"</code><code class="applescript color1">,</code> <code class="applescript color1">5</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number7 index6 alt2"><code class="applescript plain">map.put</code><code class="applescript color1">(</code><code class="applescript string">"地理"</code><code class="applescript color1">,</code> <code class="applescript color1">6</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number8 index7 alt1"><code class="applescript plain">map.put</code><code class="applescript color1">(</code><code class="applescript string">"生物"</code><code class="applescript color1">,</code> <code class="applescript color1">7</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number9 index8 alt2"><code class="applescript plain">map.put</code><code class="applescript color1">(</code><code class="applescript string">"化学"</code><code class="applescript color1">,</code> <code class="applescript color1">8</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number10 index9 alt1"><code class="applescript color3">for</code><code class="applescript color1">(</code><code class="applescript plain">Entry</code><code class="applescript color2">&lt;</code><code class="applescript plain">String</code><code class="applescript color1">,</code> <code class="applescript plain">Integer</code><code class="applescript color2">&gt;</code> <code class="applescript color3">entry</code> <code class="applescript color1">:</code> <code class="applescript plain">lmap.entrySet</code><code class="applescript color1">(</code><code class="applescript color1">)</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number11 index10 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">System.out.println</code><code class="applescript color1">(</code><code class="applescript color3">entry</code><code class="applescript plain">.getKey</code><code class="applescript color1">(</code><code class="applescript color1">)</code> <code class="applescript color2">+</code> <code class="applescript string">": "</code> <code class="applescript color2">+</code> <code class="applescript color3">entry</code><code class="applescript plain">.getValue</code><code class="applescript color1">(</code><code class="applescript color1">)</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number12 index11 alt1"><code class="applescript color1">}</code></div></div></td></tr></tbody></table></div></div></div></div><br>
+<div align="left">运行结果是</div><br>
+<blockquote><div align="left">政治: 5<br>
+生物: 7<br>
+历史: 4<br>
+数学: 2<br>
+化学: 8<br>
+语文: 1<br>
+英语: 3<br>
+地理: 6</div><br>
+<br>
+</blockquote><div align="left">发生了什么呢？下面是一个大致的结构，希望我们对HashMap的结构有一个感性的认识：</div><div align="left"><br>
+
+<ignore_js_op>
+
+<img id="aimg_22588" aid="22588" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/134722zenz5z5zel0lmiux.png" zoomfile="data/attachment/forum/201602/24/134722zenz5z5zel0lmiux.png" file="data/attachment/forum/201602/24/134722zenz5z5zel0lmiux.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" inpost="1" onmouseover="showMenu({&#39;ctrlid&#39;:this.id,&#39;pos&#39;:&#39;12&#39;})" lazyloaded="true" style="" _load="1" initialized="true">
+
+<div class="tip tip_4 aimg_tip" id="aimg_22588_menu" style="position: absolute; z-index: 301; left: 353px; top: 1388px; display: none;" disautofocus="true" initialized="true">
+<div class="xs0">
+<p><strong>1.png</strong> <em class="xg1">(258.73 KB, 下载次数: 0)</em></p>
+<p>
+<a href="http://www.aboutyun.com/forum.php?mod=attachment&aid=MjI1ODh8NjFmZDNkNTZ8MTQ1NjMwMTcwNXwwfDE3NDIw&nothumb=yes" target="_blank">下载附件</a>
+
+&nbsp;<a href="javascript:;" onclick="showWindow(this.id, this.getAttribute(&#39;url&#39;), &#39;get&#39;, 0);" id="savephoto_22588" url="home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=22588&amp;handlekey=savephoto_22588">保存到相册</a>
+
+</p>
+
+<p class="xg1 y"><span title="2016-2-24 13:47">2&nbsp;小时前</span> 上传</p>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</div><br>
+<div align="left">在官方文档中是这样描述HashMap的：</div><br>
+<blockquote><div align="left"><div class="quote"><blockquote>Hash table based implementation of the Map interface. This implementation provides all of the optional map operations, and permits null values and the null key. (The HashMap class is roughly equivalent to Hashtable, except that it isunsynchronized and permits nulls.) This class makes no guarantees as to the order of the map; in particular, it does not guarantee that the order will remain constant over time.</blockquote></div><br>
+</div><br>
+</blockquote><div align="left">几个关键的信息：基于Map接口实现、允许null键/值、非同步、不保证有序(比如插入的顺序)、也不保证序不随时间变化。</div><br>
+<font size="5"><strong>2. 两个重要的参数</strong></font><br>
+<br>
+<div align="left">在HashMap中有两个很重要的参数，容量(Capacity)和负载因子(Load factor)</div><br>
+<blockquote><ul><li>Initial capacity The capacity is the number of buckets in the hash table, The initial capacity is simply the capacity at the time the hash table is created.</li><li>Load factor The load factor is a measure of how full the hash table is allowed to get before its capacity is automatically increased.<br>
+</li></ul></blockquote><br>
+<div align="left">简单的说，Capacity就是bucket的大小，Load factor就是bucket填满程度的最大比例。如果对迭代性能要求很高的话不要把capacity设置过大，也不要把load factor设置过小。当bucket中的entries的数目大于capacity*load factor时就需要调整bucket的大小为当前的2倍。</div><br>
+<font size="5"><strong>3. put函数的实现</strong></font><br>
+<br>
+<div align="left">put函数大致的思路为：</div><br>
+<ul type="1" class="litype_1"><li>对key的hashCode()做hash，然后再计算index;</li><li>如果没碰撞直接放到bucket里；</li><li>如果碰撞了，以链表的形式存在buckets后；</li><li>如果碰撞导致链表过长(大于等于TREEIFY_THRESHOLD)，就把链表转换成红黑树；</li><li>如果节点已经存在就替换old value(保证key的唯一性)</li><li>如果bucket满了(超过load factor*current capacity)，就要resize。<br>
+</li></ul><br>
+<div align="left">具体代码的实现如下：<br>
+</div><br>
+<div style="padding:15px 0;"><div style="font-size:12px;">[AppleScript] <em class="viewsource" style="cursor:pointer;font-size:12px;color:#369 !important;" num="1">纯文本查看</em> <em class="copycode" style="cursor:pointer;font-size:12px;color:#369 !important;" num="1">复制代码</em></div><div><div id="highlighter_803817" class="syntaxhighlighter notranslate applescript"><div class="toolbar"><span><a href="http://www.aboutyun.com/#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">01</div><div class="line number2 index1 alt1">02</div><div class="line number3 index2 alt2">03</div><div class="line number4 index3 alt1">04</div><div class="line number5 index4 alt2">05</div><div class="line number6 index5 alt1">06</div><div class="line number7 index6 alt2">07</div><div class="line number8 index7 alt1">08</div><div class="line number9 index8 alt2">09</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="applescript plain">public V put</code><code class="applescript color1">(</code><code class="applescript plain">K </code><code class="applescript color3">key</code><code class="applescript color1">,</code> <code class="applescript plain">V </code><code class="applescript color3">value</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number2 index1 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">对</code><code class="applescript color3">key</code><code class="applescript plain">的hashCode</code><code class="applescript color1">(</code><code class="applescript color1">)</code><code class="applescript plain">做hash</code></div><div class="line number3 index2 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">return</code> <code class="applescript plain">putVal</code><code class="applescript color1">(</code><code class="applescript plain">hash</code><code class="applescript color1">(</code><code class="applescript color3">key</code><code class="applescript color1">)</code><code class="applescript color1">,</code> <code class="applescript color3">key</code><code class="applescript color1">,</code> <code class="applescript color3">value</code><code class="applescript color1">,</code> <code class="applescript color3">false</code><code class="applescript color1">,</code> <code class="applescript color3">true</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number4 index3 alt1"><code class="applescript color1">}</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="applescript plain">final V putVal</code><code class="applescript color1">(</code><code class="applescript plain">int hash</code><code class="applescript color1">,</code> <code class="applescript plain">K </code><code class="applescript color3">key</code><code class="applescript color1">,</code> <code class="applescript plain">V </code><code class="applescript color3">value</code><code class="applescript color1">,</code> <code class="applescript color3">boolean</code> <code class="applescript plain">onlyIfAbsent</code><code class="applescript color1">,</code></div><div class="line number7 index6 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color3">boolean</code> <code class="applescript plain">evict</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number8 index7 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code><code class="applescript plain">[] tab; Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code> <code class="applescript plain">p; int n</code><code class="applescript color1">,</code> <code class="applescript plain">i;</code></div><div class="line number9 index8 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">tab为空则创建</code></div><div class="line number10 index9 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">tab </code><code class="applescript color2">=</code> <code class="applescript plain">table</code><code class="applescript color1">)</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">null || </code><code class="applescript color1">(</code><code class="applescript plain">n </code><code class="applescript color2">=</code> <code class="applescript plain">tab.length</code><code class="applescript color1">)</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript color1">0</code><code class="applescript color1">)</code></div><div class="line number11 index10 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">n </code><code class="applescript color2">=</code> <code class="applescript color1">(</code><code class="applescript plain">tab </code><code class="applescript color2">=</code> <code class="applescript color3">resize</code><code class="applescript color1">(</code><code class="applescript color1">)</code><code class="applescript color1">)</code><code class="applescript plain">.length;</code></div><div class="line number12 index11 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">计算</code><code class="applescript color3">index</code><code class="applescript plain">，并对null做处理</code></div><div class="line number13 index12 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">p </code><code class="applescript color2">=</code> <code class="applescript plain">tab[i </code><code class="applescript color2">=</code> <code class="applescript color1">(</code><code class="applescript plain">n </code><code class="applescript color2">-</code> <code class="applescript color1">1</code><code class="applescript color1">)</code> <code class="applescript color2">&amp;</code> <code class="applescript plain">hash]</code><code class="applescript color1">)</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code></div><div class="line number14 index13 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">tab </code><code class="applescript color2">=</code> <code class="applescript plain">newNode</code><code class="applescript color1">(</code><code class="applescript plain">hash</code><code class="applescript color1">,</code> <code class="applescript color3">key</code><code class="applescript color1">,</code> <code class="applescript color3">value</code><code class="applescript color1">,</code> <code class="applescript plain">null</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number15 index14 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else</code> <code class="applescript color1">{</code></div><div class="line number16 index15 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code> <code class="applescript plain">e; K k;</code></div><div class="line number17 index16 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">节点存在</code></div><div class="line number18 index17 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">p.hash </code><code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">hash </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code></div><div class="line number19 index18 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">k </code><code class="applescript color2">=</code> <code class="applescript plain">p.</code><code class="applescript color3">key</code><code class="applescript color1">)</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript color3">key</code> <code class="applescript plain">|| </code><code class="applescript color1">(</code><code class="applescript color3">key</code> <code class="applescript plain">!</code><code class="applescript color2">=</code> <code class="applescript plain">null </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code> <code class="applescript color3">key</code><code class="applescript plain">.</code><code class="applescript keyword">equals</code><code class="applescript color1">(</code><code class="applescript plain">k</code><code class="applescript color1">)</code><code class="applescript color1">)</code><code class="applescript color1">)</code><code class="applescript color1">)</code></div><div class="line number20 index19 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">e </code><code class="applescript color2">=</code> <code class="applescript plain">p;</code></div><div class="line number21 index20 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">该链为树</code></div><div class="line number22 index21 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else if</code> <code class="applescript color1">(</code><code class="applescript plain">p instanceof TreeNode</code><code class="applescript color1">)</code></div><div class="line number23 index22 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">e </code><code class="applescript color2">=</code> <code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">TreeNode</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code><code class="applescript color1">)</code><code class="applescript plain">p</code><code class="applescript color1">)</code><code class="applescript plain">.putTreeVal</code><code class="applescript color1">(</code><code class="applescript plain">this</code><code class="applescript color1">,</code> <code class="applescript plain">tab</code><code class="applescript color1">,</code> <code class="applescript plain">hash</code><code class="applescript color1">,</code> <code class="applescript color3">key</code><code class="applescript color1">,</code> <code class="applescript color3">value</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number24 index23 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">该链为链表</code></div><div class="line number25 index24 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else</code> <code class="applescript color1">{</code></div><div class="line number26 index25 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color3">for</code> <code class="applescript color1">(</code><code class="applescript plain">int binCount </code><code class="applescript color2">=</code> <code class="applescript color1">0</code><code class="applescript plain">; ; </code><code class="applescript color2">+</code><code class="applescript color2">+</code><code class="applescript plain">binCount</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number27 index26 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">e </code><code class="applescript color2">=</code> <code class="applescript plain">p.next</code><code class="applescript color1">)</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number28 index27 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">p.next </code><code class="applescript color2">=</code> <code class="applescript plain">newNode</code><code class="applescript color1">(</code><code class="applescript plain">hash</code><code class="applescript color1">,</code> <code class="applescript color3">key</code><code class="applescript color1">,</code> <code class="applescript color3">value</code><code class="applescript color1">,</code> <code class="applescript plain">null</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number29 index28 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">binCount </code><code class="applescript color2">&gt;</code><code class="applescript color2">=</code> <code class="applescript plain">TREEIFY_THRESHOLD </code><code class="applescript color2">-</code> <code class="applescript color1">1</code><code class="applescript color1">)</code> <code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript color1">-1</code> <code class="applescript color3">for</code> <code class="applescript keyword">1st</code></div><div class="line number30 index29 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">treeifyBin</code><code class="applescript color1">(</code><code class="applescript plain">tab</code><code class="applescript color1">,</code> <code class="applescript plain">hash</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number31 index30 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">break;</code></div><div class="line number32 index31 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number33 index32 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">e.hash </code><code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">hash </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code></div><div class="line number34 index33 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">k </code><code class="applescript color2">=</code> <code class="applescript plain">e.</code><code class="applescript color3">key</code><code class="applescript color1">)</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript color3">key</code> <code class="applescript plain">|| </code><code class="applescript color1">(</code><code class="applescript color3">key</code> <code class="applescript plain">!</code><code class="applescript color2">=</code> <code class="applescript plain">null </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code> <code class="applescript color3">key</code><code class="applescript plain">.</code><code class="applescript keyword">equals</code><code class="applescript color1">(</code><code class="applescript plain">k</code><code class="applescript color1">)</code><code class="applescript color1">)</code><code class="applescript color1">)</code><code class="applescript color1">)</code></div><div class="line number35 index34 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">break;</code></div><div class="line number36 index35 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">p </code><code class="applescript color2">=</code> <code class="applescript plain">e;</code></div><div class="line number37 index36 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number38 index37 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number39 index38 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">写入</code></div><div class="line number40 index39 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">e !</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code> <code class="applescript color1">{</code> <code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">existing mapping </code><code class="applescript color3">for</code> <code class="applescript color3">key</code></div><div class="line number41 index40 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">V oldValue </code><code class="applescript color2">=</code> <code class="applescript plain">e.</code><code class="applescript color3">value</code><code class="applescript plain">;</code></div><div class="line number42 index41 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">!onlyIfAbsent || oldValue </code><code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code></div><div class="line number43 index42 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">e.</code><code class="applescript color3">value</code> <code class="applescript color2">=</code> <code class="applescript color3">value</code><code class="applescript plain">;</code></div><div class="line number44 index43 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">afterNodeAccess</code><code class="applescript color1">(</code><code class="applescript plain">e</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number45 index44 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">return</code> <code class="applescript plain">oldValue;</code></div><div class="line number46 index45 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number47 index46 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number48 index47 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">+</code><code class="applescript color2">+</code><code class="applescript plain">modCount;</code></div><div class="line number49 index48 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">超过load factor</code><code class="applescript color2">*</code><code class="applescript plain">current capacity，</code><code class="applescript color3">resize</code></div><div class="line number50 index49 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript color2">+</code><code class="applescript color2">+</code><code class="applescript plain">size </code><code class="applescript color2">&gt;</code> <code class="applescript plain">threshold</code><code class="applescript color1">)</code></div><div class="line number51 index50 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color3">resize</code><code class="applescript color1">(</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number52 index51 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">afterNodeInsertion</code><code class="applescript color1">(</code><code class="applescript plain">evict</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number53 index52 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color3">return</code> <code class="applescript plain">null;</code></div><div class="line number54 index53 alt1"><code class="applescript color1">}</code></div></div></td></tr></tbody></table></div></div></div><br>
+<br>
+<font size="5"><strong>4. get函数的实现</strong></font><br>
+<br>
+<div align="left">在理解了put之后，get就很简单了。大致思路如下：</div><br>
+<ul type="1" class="litype_1"><li>bucket里的第一个节点，直接命中；</li><li>如果有冲突，则通过key.equals(k)去查找对应的entry<br>
+若为树，则在树中通过key.equals(k)查找，O(logn)；<br>
+若为链表，则在链表中通过key.equals(k)查找，O(n)。<br>
+</li></ul><br>
+<div align="left">具体代码的实现如下：<br>
+</div><br>
+<div style="padding:15px 0;"><div style="font-size:12px;">[AppleScript] <em class="viewsource" style="cursor:pointer;font-size:12px;color:#369 !important;" num="2">纯文本查看</em> <em class="copycode" style="cursor:pointer;font-size:12px;color:#369 !important;" num="2">复制代码</em></div><div><div id="highlighter_455590" class="syntaxhighlighter notranslate applescript"><div class="toolbar"><span><a href="http://www.aboutyun.com/#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">01</div><div class="line number2 index1 alt1">02</div><div class="line number3 index2 alt2">03</div><div class="line number4 index3 alt1">04</div><div class="line number5 index4 alt2">05</div><div class="line number6 index5 alt1">06</div><div class="line number7 index6 alt2">07</div><div class="line number8 index7 alt1">08</div><div class="line number9 index8 alt2">09</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="applescript plain">public V </code><code class="applescript keyword">get</code><code class="applescript color1">(</code><code class="applescript plain">Object </code><code class="applescript color3">key</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number2 index1 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code> <code class="applescript plain">e;</code></div><div class="line number3 index2 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">return</code> <code class="applescript color1">(</code><code class="applescript plain">e </code><code class="applescript color2">=</code> <code class="applescript plain">getNode</code><code class="applescript color1">(</code><code class="applescript plain">hash</code><code class="applescript color1">(</code><code class="applescript color3">key</code><code class="applescript color1">)</code><code class="applescript color1">,</code> <code class="applescript color3">key</code><code class="applescript color1">)</code><code class="applescript color1">)</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">null ? null </code><code class="applescript color1">:</code> <code class="applescript plain">e.</code><code class="applescript color3">value</code><code class="applescript plain">;</code></div><div class="line number4 index3 alt1"><code class="applescript color1">}</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="applescript plain">final Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code> <code class="applescript plain">getNode</code><code class="applescript color1">(</code><code class="applescript plain">int hash</code><code class="applescript color1">,</code> <code class="applescript plain">Object </code><code class="applescript color3">key</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number7 index6 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code><code class="applescript plain">[] tab; Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code> <code class="applescript keyword">first</code><code class="applescript color1">,</code> <code class="applescript plain">e; int n; K k;</code></div><div class="line number8 index7 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">tab </code><code class="applescript color2">=</code> <code class="applescript plain">table</code><code class="applescript color1">)</code> <code class="applescript plain">!</code><code class="applescript color2">=</code> <code class="applescript plain">null </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code> <code class="applescript color1">(</code><code class="applescript plain">n </code><code class="applescript color2">=</code> <code class="applescript plain">tab.length</code><code class="applescript color1">)</code> <code class="applescript color2">&gt;</code> <code class="applescript color1">0</code> <code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code></div><div class="line number9 index8 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">(</code><code class="applescript keyword">first</code> <code class="applescript color2">=</code> <code class="applescript plain">tab[</code><code class="applescript color1">(</code><code class="applescript plain">n </code><code class="applescript color2">-</code> <code class="applescript color1">1</code><code class="applescript color1">)</code> <code class="applescript color2">&amp;</code> <code class="applescript plain">hash]</code><code class="applescript color1">)</code> <code class="applescript plain">!</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number10 index9 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">直接命中</code></div><div class="line number11 index10 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript keyword">first</code><code class="applescript plain">.hash </code><code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">hash </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code> <code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">always check </code><code class="applescript keyword">first</code> <code class="applescript plain">node</code></div><div class="line number12 index11 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">k </code><code class="applescript color2">=</code> <code class="applescript keyword">first</code><code class="applescript plain">.</code><code class="applescript color3">key</code><code class="applescript color1">)</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript color3">key</code> <code class="applescript plain">|| </code><code class="applescript color1">(</code><code class="applescript color3">key</code> <code class="applescript plain">!</code><code class="applescript color2">=</code> <code class="applescript plain">null </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code> <code class="applescript color3">key</code><code class="applescript plain">.</code><code class="applescript keyword">equals</code><code class="applescript color1">(</code><code class="applescript plain">k</code><code class="applescript color1">)</code><code class="applescript color1">)</code><code class="applescript color1">)</code><code class="applescript color1">)</code></div><div class="line number13 index12 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">return</code> <code class="applescript keyword">first</code><code class="applescript plain">;</code></div><div class="line number14 index13 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">未命中</code></div><div class="line number15 index14 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">e </code><code class="applescript color2">=</code> <code class="applescript keyword">first</code><code class="applescript plain">.next</code><code class="applescript color1">)</code> <code class="applescript plain">!</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number16 index15 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">在树中</code><code class="applescript keyword">get</code></div><div class="line number17 index16 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript keyword">first</code> <code class="applescript plain">instanceof TreeNode</code><code class="applescript color1">)</code></div><div class="line number18 index17 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">return</code> <code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">TreeNode</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code><code class="applescript color1">)</code><code class="applescript keyword">first</code><code class="applescript color1">)</code><code class="applescript plain">.getTreeNode</code><code class="applescript color1">(</code><code class="applescript plain">hash</code><code class="applescript color1">,</code> <code class="applescript color3">key</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number19 index18 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">在链表中</code><code class="applescript keyword">get</code></div><div class="line number20 index19 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">do </code><code class="applescript color1">{</code></div><div class="line number21 index20 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">e.hash </code><code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">hash </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code></div><div class="line number22 index21 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">k </code><code class="applescript color2">=</code> <code class="applescript plain">e.</code><code class="applescript color3">key</code><code class="applescript color1">)</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript color3">key</code> <code class="applescript plain">|| </code><code class="applescript color1">(</code><code class="applescript color3">key</code> <code class="applescript plain">!</code><code class="applescript color2">=</code> <code class="applescript plain">null </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code> <code class="applescript color3">key</code><code class="applescript plain">.</code><code class="applescript keyword">equals</code><code class="applescript color1">(</code><code class="applescript plain">k</code><code class="applescript color1">)</code><code class="applescript color1">)</code><code class="applescript color1">)</code><code class="applescript color1">)</code></div><div class="line number23 index22 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color3">return</code> <code class="applescript plain">e;</code></div><div class="line number24 index23 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code> <code class="applescript plain">while </code><code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">e </code><code class="applescript color2">=</code> <code class="applescript plain">e.next</code><code class="applescript color1">)</code> <code class="applescript plain">!</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number25 index24 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number26 index25 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number27 index26 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color3">return</code> <code class="applescript plain">null;</code></div><div class="line number28 index27 alt1"><code class="applescript color1">}</code></div></div></td></tr></tbody></table></div></div></div><br>
+<br>
+<font size="5"><strong>5. hash函数的实现</strong></font><br>
+<br>
+<div align="left">在get和put的过程中，计算下标时，先对hashCode进行hash操作，然后再通过hash值进一步计算下标，如下图所示：</div><div align="left"><br>
+
+<ignore_js_op>
+
+<img id="aimg_22589" aid="22589" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/134722mk7v2hjyjb9yb8k9.png" zoomfile="data/attachment/forum/201602/24/134722mk7v2hjyjb9yb8k9.png" file="data/attachment/forum/201602/24/134722mk7v2hjyjb9yb8k9.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="586" inpost="1" onmouseover="showMenu({&#39;ctrlid&#39;:this.id,&#39;pos&#39;:&#39;12&#39;})" lazyloaded="true" style="" _load="1" initialized="true">
+
+<div class="tip tip_4 aimg_tip" id="aimg_22589_menu" style="position: absolute; z-index: 301; left: 353px; top: 4676px; display: none;" disautofocus="true" initialized="true">
+<div class="xs0">
+<p><strong>2.png</strong> <em class="xg1">(14.42 KB, 下载次数: 0)</em></p>
+<p>
+<a href="http://www.aboutyun.com/forum.php?mod=attachment&aid=MjI1ODl8NDE0MzBhNTF8MTQ1NjMwMTcwNXwwfDE3NDIw&nothumb=yes" target="_blank">下载附件</a>
+
+&nbsp;<a href="javascript:;" onclick="showWindow(this.id, this.getAttribute(&#39;url&#39;), &#39;get&#39;, 0);" id="savephoto_22589" url="home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=22589&amp;handlekey=savephoto_22589">保存到相册</a>
+
+</p>
+
+<p class="xg1 y"><span title="2016-2-24 13:47">2&nbsp;小时前</span> 上传</p>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</div><br>
+<div align="left">在对hashCode()计算hash时具体实现是这样的：<br>
+</div><br>
+<div style="padding:15px 0;"><div style="font-size:12px;">[AppleScript] <em class="viewsource" style="cursor:pointer;font-size:12px;color:#369 !important;" num="3">纯文本查看</em> <em class="copycode" style="cursor:pointer;font-size:12px;color:#369 !important;" num="3">复制代码</em></div><div><div id="highlighter_678508" class="syntaxhighlighter notranslate applescript"><div class="toolbar"><span><a href="http://www.aboutyun.com/#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="applescript plain">static final int hash</code><code class="applescript color1">(</code><code class="applescript plain">Object </code><code class="applescript color3">key</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number2 index1 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">int h;</code></div><div class="line number3 index2 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">return</code> <code class="applescript color1">(</code><code class="applescript color3">key</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code> <code class="applescript plain">? </code><code class="applescript color1">0</code> <code class="applescript color1">:</code> <code class="applescript color1">(</code><code class="applescript plain">h </code><code class="applescript color2">=</code> <code class="applescript color3">key</code><code class="applescript plain">.hashCode</code><code class="applescript color1">(</code><code class="applescript color1">)</code><code class="applescript color1">)</code> <code class="applescript color2">^</code> <code class="applescript color1">(</code><code class="applescript plain">h </code><code class="applescript color2">&gt;</code><code class="applescript color2">&gt;</code><code class="applescript color2">&gt;</code> <code class="applescript color1">16</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number4 index3 alt1"><code class="applescript color1">}</code></div></div></td></tr></tbody></table></div></div></div><br>
+<br>
+<div align="left">可以看到这个函数大概的作用就是：高16bit不变，低16bit和高16bit做了一个异或。其中代码注释是这样写的：</div><br>
+<blockquote><div align="left"><div class="quote"><blockquote>Computes key.hashCode() and spreads (XORs) higher bits of hash to lower. Because the table uses power-of-two masking, sets of hashes that vary only in bits above the current mask will always collide. (Among known examples are sets of Float keys holding consecutive whole numbers in small tables.) So we apply a transform that spreads the impact of higher bits downward. There is a tradeoff between speed, utility, and quality of bit-spreading. Because many common sets of hashes are already reasonably distributed (so don’t benefit from spreading), and because we use trees to handle large sets of collisions in bins, we just XOR some shifted bits in the cheapest possible way to reduce systematic lossage, as well as to incorporate impact of the highest bits that would otherwise never be used in index calculations because of table bounds.</blockquote></div><br>
+</div><br>
+</blockquote><div align="left">在设计hash函数时，因为目前的table长度n为2的幂，而计算下标的时候，是这样实现的(使用&amp;位操作，而非%求余)：</div><br>
+(n - 1) &amp; hash<br>
+<br>
+<div align="left">设计者认为这方法很容易发生碰撞。为什么这么说呢？不妨思考一下，在n - 1为15(0x1111)时，其实散列真正生效的只是低4bit的有效位，当然容易碰撞了。</div><br>
+<div align="left">因此，设计者想了一个顾全大局的方法(综合考虑了速度、作用、质量)，就是把高16bit和低16bit异或了一下。设计者还解释到因为现在大多数的hashCode的分布已经很不错了，就算是发生了碰撞也用O(logn)的tree去做了。仅仅异或一下，既减少了系统的开销，也不会造成的因为高位没有参与下标的计算(table长度比较小时)，从而引起的碰撞。</div><br>
+<div align="left">如果还是产生了频繁的碰撞，会发生什么问题呢？作者注释说，他们使用树来处理频繁的碰撞(we use trees to handle large sets of collisions in bins)，在JEP-180中，描述了这个问题：</div><br>
+<blockquote><div align="left"><div class="quote"><blockquote>Improve the performance of java.util.HashMap under high hash-collision conditions by using balanced trees rather than linked lists to store map entries. Implement the same improvement in the LinkedHashMap class.</blockquote></div><br>
+</div><br>
+</blockquote><div align="left">之前已经提过，在获取HashMap的元素时，基本分两步：</div><br>
+<ul type="1" class="litype_1"><li>首先根据hashCode()做hash，然后确定bucket的index；</li><li>如果bucket的节点的key不是我们需要的，则通过keys.equals()在链中找。<br>
+</li></ul><br>
+<div align="left">在Java 8之前的实现中是用链表解决冲突的，在产生碰撞的情况下，进行get时，两步的时间复杂度是O(1)+O(n)。因此，当碰撞很厉害的时候n很大，O(n)的速度显然是影响速度的。</div><br>
+<div align="left">因此在Java 8中，利用红黑树替换链表，这样复杂度就变成了O(1)+O(logn)了，这样在n很大的时候，能够比较理想的解决这个问题，在Java 8：HashMap的性能提升一文中有性能测试的结果。</div><br>
+<font size="5"><strong>6. resize的实现</strong></font><br>
+<br>
+<div align="left">当put时，如果发现目前的bucket占用程度已经超过了Load Factor所希望的比例，那么就会发生resize。在resize的过程，简单的说就是把bucket扩充为2倍，之后重新计算index，把节点再放到新的bucket中。resize的注释是这样描述的：</div><br>
+<blockquote><div align="left"><div class="quote"><blockquote>Initializes or doubles table size. If null, allocates in accord with initial capacity target held in field threshold. Otherwise, because we are using power-of-two expansion, the elements from each bin must either stay at same index, or move with a power of two offset in the new table.</blockquote></div><br>
+</div></blockquote><div align="left">大致意思就是说，当超过限制的时候会resize，然而又因为我们使用的是2次幂的扩展(指长度扩为原来2倍)，所以，元素的位置要么是在原位置，要么是在原位置再移动2次幂的位置。</div><br>
+<div align="left">怎么理解呢？例如我们从16扩展为32时，具体的变化如下所示：</div><div align="left"><br>
+
+<ignore_js_op>
+
+<img id="aimg_22590" aid="22590" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/134722tz5606vmavu3i3v0.png" zoomfile="data/attachment/forum/201602/24/134722tz5606vmavu3i3v0.png" file="data/attachment/forum/201602/24/134722tz5606vmavu3i3v0.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" inpost="1" onmouseover="showMenu({&#39;ctrlid&#39;:this.id,&#39;pos&#39;:&#39;12&#39;})" lazyloaded="true" style="" _load="1">
+
+<div class="tip tip_4 aimg_tip" id="aimg_22590_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="xs0">
+<p><strong>3.png</strong> <em class="xg1">(7.18 KB, 下载次数: 0)</em></p>
+<p>
+<a href="http://www.aboutyun.com/forum.php?mod=attachment&aid=MjI1OTB8MDkxN2E1Yjl8MTQ1NjMwMTcwNXwwfDE3NDIw&nothumb=yes" target="_blank">下载附件</a>
+
+&nbsp;<a href="javascript:;" onclick="showWindow(this.id, this.getAttribute(&#39;url&#39;), &#39;get&#39;, 0);" id="savephoto_22590" url="home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=22590&amp;handlekey=savephoto_22590">保存到相册</a>
+
+</p>
+
+<p class="xg1 y"><span title="2016-2-24 13:47">2&nbsp;小时前</span> 上传</p>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</div><br>
+<div align="left">因此元素在重新计算hash之后，因为n变为2倍，那么n-1的mask范围在高位多1bit(红色)，因此新的index就会发生这样的变化：</div><div align="left"><br>
+
+<ignore_js_op>
+
+<img id="aimg_22591" aid="22591" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/134723aidvzwbvv2iwbvq1.png" zoomfile="data/attachment/forum/201602/24/134723aidvzwbvv2iwbvq1.png" file="data/attachment/forum/201602/24/134723aidvzwbvv2iwbvq1.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="520" inpost="1" onmouseover="showMenu({&#39;ctrlid&#39;:this.id,&#39;pos&#39;:&#39;12&#39;})" lazyloaded="true" style="" _load="1">
+
+<div class="tip tip_4 aimg_tip" id="aimg_22591_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="xs0">
+<p><strong>4.png</strong> <em class="xg1">(5.86 KB, 下载次数: 0)</em></p>
+<p>
+<a href="http://www.aboutyun.com/forum.php?mod=attachment&aid=MjI1OTF8MDExM2MyM2F8MTQ1NjMwMTcwNXwwfDE3NDIw&nothumb=yes" target="_blank">下载附件</a>
+
+&nbsp;<a href="javascript:;" onclick="showWindow(this.id, this.getAttribute(&#39;url&#39;), &#39;get&#39;, 0);" id="savephoto_22591" url="home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=22591&amp;handlekey=savephoto_22591">保存到相册</a>
+
+</p>
+
+<p class="xg1 y"><span title="2016-2-24 13:47">2&nbsp;小时前</span> 上传</p>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</div><br>
+<div align="left">因此，我们在扩充HashMap的时候，不需要重新计算hash，只需要看看原来的hash值新增的那个bit是1还是0就好了，是0的话索引没变，是1的话索引变成“原索引+oldCap”。可以看看下图为16扩充为32的resize示意图：</div><div align="left"><br>
+
+<ignore_js_op>
+
+<img id="aimg_22592" aid="22592" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/134723b6ff44f6vjg844v1.png" zoomfile="data/attachment/forum/201602/24/134723b6ff44f6vjg844v1.png" file="data/attachment/forum/201602/24/134723b6ff44f6vjg844v1.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" inpost="1" onmouseover="showMenu({&#39;ctrlid&#39;:this.id,&#39;pos&#39;:&#39;12&#39;})" lazyloaded="true" style="" _load="1">
+
+<div class="tip tip_4 aimg_tip" id="aimg_22592_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="xs0">
+<p><strong>5.png</strong> <em class="xg1">(34.43 KB, 下载次数: 0)</em></p>
+<p>
+<a href="http://www.aboutyun.com/forum.php?mod=attachment&aid=MjI1OTJ8NzczMjY3Njd8MTQ1NjMwMTcwNXwwfDE3NDIw&nothumb=yes" target="_blank">下载附件</a>
+
+&nbsp;<a href="javascript:;" onclick="showWindow(this.id, this.getAttribute(&#39;url&#39;), &#39;get&#39;, 0);" id="savephoto_22592" url="home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=22592&amp;handlekey=savephoto_22592">保存到相册</a>
+
+</p>
+
+<p class="xg1 y"><span title="2016-2-24 13:47">2&nbsp;小时前</span> 上传</p>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</div><br>
+<div align="left">这个设计确实非常的巧妙，既省去了重新计算hash值的时间，而且同时，由于新增的1bit是0还是1可以认为是随机的，因此resize的过程，均匀的把之前的冲突的节点分散到新的bucket了。</div><br>
+<div align="left">下面是代码的具体实现：<br>
+</div><br>
+<div style="padding:15px 0;"><div style="font-size:12px;">[AppleScript] <em class="viewsource" style="cursor:pointer;font-size:12px;color:#369 !important;" num="4">纯文本查看</em> <em class="copycode" style="cursor:pointer;font-size:12px;color:#369 !important;" num="4">复制代码</em></div><div><div id="highlighter_41721" class="syntaxhighlighter notranslate applescript"><div class="toolbar"><span><a href="http://www.aboutyun.com/#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">01</div><div class="line number2 index1 alt1">02</div><div class="line number3 index2 alt2">03</div><div class="line number4 index3 alt1">04</div><div class="line number5 index4 alt2">05</div><div class="line number6 index5 alt1">06</div><div class="line number7 index6 alt2">07</div><div class="line number8 index7 alt1">08</div><div class="line number9 index8 alt2">09</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div><div class="line number55 index54 alt2">55</div><div class="line number56 index55 alt1">56</div><div class="line number57 index56 alt2">57</div><div class="line number58 index57 alt1">58</div><div class="line number59 index58 alt2">59</div><div class="line number60 index59 alt1">60</div><div class="line number61 index60 alt2">61</div><div class="line number62 index61 alt1">62</div><div class="line number63 index62 alt2">63</div><div class="line number64 index63 alt1">64</div><div class="line number65 index64 alt2">65</div><div class="line number66 index65 alt1">66</div><div class="line number67 index66 alt2">67</div><div class="line number68 index67 alt1">68</div><div class="line number69 index68 alt2">69</div><div class="line number70 index69 alt1">70</div><div class="line number71 index70 alt2">71</div><div class="line number72 index71 alt1">72</div><div class="line number73 index72 alt2">73</div><div class="line number74 index73 alt1">74</div><div class="line number75 index74 alt2">75</div><div class="line number76 index75 alt1">76</div><div class="line number77 index76 alt2">77</div><div class="line number78 index77 alt1">78</div><div class="line number79 index78 alt2">79</div><div class="line number80 index79 alt1">80</div><div class="line number81 index80 alt2">81</div><div class="line number82 index81 alt1">82</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="applescript plain">final Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code><code class="applescript plain">[] </code><code class="applescript color3">resize</code><code class="applescript color1">(</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number2 index1 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code><code class="applescript plain">[] oldTab </code><code class="applescript color2">=</code> <code class="applescript plain">table;</code></div><div class="line number3 index2 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">int oldCap </code><code class="applescript color2">=</code> <code class="applescript color1">(</code><code class="applescript plain">oldTab </code><code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code> <code class="applescript plain">? </code><code class="applescript color1">0</code> <code class="applescript color1">:</code> <code class="applescript plain">oldTab.length;</code></div><div class="line number4 index3 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">int oldThr </code><code class="applescript color2">=</code> <code class="applescript plain">threshold;</code></div><div class="line number5 index4 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">int newCap</code><code class="applescript color1">,</code> <code class="applescript plain">newThr </code><code class="applescript color2">=</code> <code class="applescript color1">0</code><code class="applescript plain">;</code></div><div class="line number6 index5 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">oldCap </code><code class="applescript color2">&gt;</code> <code class="applescript color1">0</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number7 index6 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">超过最大值就不再扩充了，就只好随你碰撞去吧</code></div><div class="line number8 index7 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">oldCap </code><code class="applescript color2">&gt;</code><code class="applescript color2">=</code> <code class="applescript plain">MAXIMUM_CAPACITY</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number9 index8 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">threshold </code><code class="applescript color2">=</code> <code class="applescript plain">Integer.MAX_VALUE;</code></div><div class="line number10 index9 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color3">return</code> <code class="applescript plain">oldTab;</code></div><div class="line number11 index10 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number12 index11 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">没超过最大值，就扩充为原来的</code><code class="applescript color1">2</code><code class="applescript plain">倍</code></div><div class="line number13 index12 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else if</code> <code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">newCap </code><code class="applescript color2">=</code> <code class="applescript plain">oldCap </code><code class="applescript color2">&lt;</code><code class="applescript color2">&lt;</code> <code class="applescript color1">1</code><code class="applescript color1">)</code> <code class="applescript color2">&lt;</code> <code class="applescript plain">MAXIMUM_CAPACITY </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code></div><div class="line number14 index13 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">oldCap </code><code class="applescript color2">&gt;</code><code class="applescript color2">=</code> <code class="applescript plain">DEFAULT_INITIAL_CAPACITY</code><code class="applescript color1">)</code></div><div class="line number15 index14 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">newThr </code><code class="applescript color2">=</code> <code class="applescript plain">oldThr </code><code class="applescript color2">&lt;</code><code class="applescript color2">&lt;</code> <code class="applescript color1">1</code><code class="applescript plain">; </code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">double threshold</code></div><div class="line number16 index15 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number17 index16 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else if</code> <code class="applescript color1">(</code><code class="applescript plain">oldThr </code><code class="applescript color2">&gt;</code> <code class="applescript color1">0</code><code class="applescript color1">)</code> <code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">initial capacity was placed </code><code class="applescript keyword">in</code> <code class="applescript plain">threshold</code></div><div class="line number18 index17 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">newCap </code><code class="applescript color2">=</code> <code class="applescript plain">oldThr;</code></div><div class="line number19 index18 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else</code> <code class="applescript color1">{</code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">zero initial threshold signifies </code><code class="applescript color3">using</code> <code class="applescript plain">defaults</code></div><div class="line number20 index19 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">newCap </code><code class="applescript color2">=</code> <code class="applescript plain">DEFAULT_INITIAL_CAPACITY;</code></div><div class="line number21 index20 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">newThr </code><code class="applescript color2">=</code> <code class="applescript color1">(</code><code class="applescript plain">int</code><code class="applescript color1">)</code><code class="applescript color1">(</code><code class="applescript plain">DEFAULT_LOAD_FACTOR </code><code class="applescript color2">*</code> <code class="applescript plain">DEFAULT_INITIAL_CAPACITY</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number22 index21 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number23 index22 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">计算新的</code><code class="applescript color3">resize</code><code class="applescript plain">上限</code></div><div class="line number24 index23 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">newThr </code><code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript color1">0</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number25 index24 alt2">&nbsp;</div><div class="line number26 index25 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">float ft </code><code class="applescript color2">=</code> <code class="applescript color1">(</code><code class="applescript plain">float</code><code class="applescript color1">)</code><code class="applescript plain">newCap </code><code class="applescript color2">*</code> <code class="applescript plain">loadFactor;</code></div><div class="line number27 index26 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">newThr </code><code class="applescript color2">=</code> <code class="applescript color1">(</code><code class="applescript plain">newCap </code><code class="applescript color2">&lt;</code> <code class="applescript plain">MAXIMUM_CAPACITY </code><code class="applescript color2">&amp;</code><code class="applescript color2">&amp;</code> <code class="applescript plain">ft </code><code class="applescript color2">&lt;</code> <code class="applescript color1">(</code><code class="applescript plain">float</code><code class="applescript color1">)</code><code class="applescript plain">MAXIMUM_CAPACITY ?</code></div><div class="line number28 index27 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">(</code><code class="applescript plain">int</code><code class="applescript color1">)</code><code class="applescript plain">ft </code><code class="applescript color1">:</code> <code class="applescript plain">Integer.MAX_VALUE</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number29 index28 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number30 index29 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">threshold </code><code class="applescript color2">=</code> <code class="applescript plain">newThr;</code></div><div class="line number31 index30 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">@SuppressWarnings</code><code class="applescript color1">(</code><code class="applescript color1">{</code><code class="applescript string">"rawtypes"</code><code class="applescript color1">,</code><code class="applescript string">"unchecked"</code><code class="applescript color1">}</code><code class="applescript color1">)</code></div><div class="line number32 index31 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code><code class="applescript plain">[] newTab </code><code class="applescript color2">=</code> <code class="applescript color1">(</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code><code class="applescript plain">[]</code><code class="applescript color1">)</code><code class="applescript color3">new</code> <code class="applescript plain">Node[newCap];</code></div><div class="line number33 index32 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">table </code><code class="applescript color2">=</code> <code class="applescript plain">newTab;</code></div><div class="line number34 index33 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">oldTab !</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number35 index34 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">把每个bucket都移动到新的buckets中</code></div><div class="line number36 index35 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color3">for</code> <code class="applescript color1">(</code><code class="applescript plain">int j </code><code class="applescript color2">=</code> <code class="applescript color1">0</code><code class="applescript plain">; j </code><code class="applescript color2">&lt;</code> <code class="applescript plain">oldCap; </code><code class="applescript color2">+</code><code class="applescript color2">+</code><code class="applescript plain">j</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number37 index36 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code> <code class="applescript plain">e;</code></div><div class="line number38 index37 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">e </code><code class="applescript color2">=</code> <code class="applescript plain">oldTab[j]</code><code class="applescript color1">)</code> <code class="applescript plain">!</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number39 index38 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">oldTab[j] </code><code class="applescript color2">=</code> <code class="applescript plain">null;</code></div><div class="line number40 index39 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">e.next </code><code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code></div><div class="line number41 index40 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">newTab[e.hash </code><code class="applescript color2">&amp;</code> <code class="applescript color1">(</code><code class="applescript plain">newCap </code><code class="applescript color2">-</code> <code class="applescript color1">1</code><code class="applescript color1">)</code><code class="applescript plain">] </code><code class="applescript color2">=</code> <code class="applescript plain">e;</code></div><div class="line number42 index41 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else if</code> <code class="applescript color1">(</code><code class="applescript plain">e instanceof TreeNode</code><code class="applescript color1">)</code></div><div class="line number43 index42 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">TreeNode</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code><code class="applescript color1">)</code><code class="applescript plain">e</code><code class="applescript color1">)</code><code class="applescript plain">.split</code><code class="applescript color1">(</code><code class="applescript plain">this</code><code class="applescript color1">,</code> <code class="applescript plain">newTab</code><code class="applescript color1">,</code> <code class="applescript plain">j</code><code class="applescript color1">,</code> <code class="applescript plain">oldCap</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number44 index43 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else</code> <code class="applescript color1">{</code> <code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">preserve order</code></div><div class="line number45 index44 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code> <code class="applescript plain">loHead </code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">,</code> <code class="applescript plain">loTail </code><code class="applescript color2">=</code> <code class="applescript plain">null;</code></div><div class="line number46 index45 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code> <code class="applescript plain">hiHead </code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">,</code> <code class="applescript plain">hiTail </code><code class="applescript color2">=</code> <code class="applescript plain">null;</code></div><div class="line number47 index46 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">Node</code><code class="applescript color2">&lt;</code><code class="applescript plain">K</code><code class="applescript color1">,</code><code class="applescript plain">V</code><code class="applescript color2">&gt;</code> <code class="applescript plain">next;</code></div><div class="line number48 index47 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">do </code><code class="applescript color1">{</code></div><div class="line number49 index48 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">next </code><code class="applescript color2">=</code> <code class="applescript plain">e.next;</code></div><div class="line number50 index49 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">原索引</code></div><div class="line number51 index50 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">e.hash </code><code class="applescript color2">&amp;</code> <code class="applescript plain">oldCap</code><code class="applescript color1">)</code> <code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript color1">0</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number52 index51 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">loTail </code><code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code></div><div class="line number53 index52 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">loHead </code><code class="applescript color2">=</code> <code class="applescript plain">e;</code></div><div class="line number54 index53 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else</code></div><div class="line number55 index54 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">loTail.next </code><code class="applescript color2">=</code> <code class="applescript plain">e;</code></div><div class="line number56 index55 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">loTail </code><code class="applescript color2">=</code> <code class="applescript plain">e;</code></div><div class="line number57 index56 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number58 index57 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">原索引</code><code class="applescript color2">+</code><code class="applescript plain">oldCap</code></div><div class="line number59 index58 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else</code> <code class="applescript color1">{</code></div><div class="line number60 index59 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">hiTail </code><code class="applescript color2">=</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code></div><div class="line number61 index60 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">hiHead </code><code class="applescript color2">=</code> <code class="applescript plain">e;</code></div><div class="line number62 index61 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">else</code></div><div class="line number63 index62 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">hiTail.next </code><code class="applescript color2">=</code> <code class="applescript plain">e;</code></div><div class="line number64 index63 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">hiTail </code><code class="applescript color2">=</code> <code class="applescript plain">e;</code></div><div class="line number65 index64 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number66 index65 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code> <code class="applescript plain">while </code><code class="applescript color1">(</code><code class="applescript color1">(</code><code class="applescript plain">e </code><code class="applescript color2">=</code> <code class="applescript plain">next</code><code class="applescript color1">)</code> <code class="applescript plain">!</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code><code class="applescript plain">;</code></div><div class="line number67 index66 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">原索引放到bucket里</code></div><div class="line number68 index67 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">loTail !</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number69 index68 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">loTail.next </code><code class="applescript color2">=</code> <code class="applescript plain">null;</code></div><div class="line number70 index69 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">newTab[j] </code><code class="applescript color2">=</code> <code class="applescript plain">loHead;</code></div><div class="line number71 index70 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number72 index71 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color2">/</code><code class="applescript color2">/</code> <code class="applescript plain">原索引</code><code class="applescript color2">+</code><code class="applescript plain">oldCap放到bucket里</code></div><div class="line number73 index72 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">if</code> <code class="applescript color1">(</code><code class="applescript plain">hiTail !</code><code class="applescript color2">=</code> <code class="applescript plain">null</code><code class="applescript color1">)</code> <code class="applescript color1">{</code></div><div class="line number74 index73 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">hiTail.next </code><code class="applescript color2">=</code> <code class="applescript plain">null;</code></div><div class="line number75 index74 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript plain">newTab[j </code><code class="applescript color2">+</code> <code class="applescript plain">oldCap] </code><code class="applescript color2">=</code> <code class="applescript plain">hiHead;</code></div><div class="line number76 index75 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number77 index76 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number78 index77 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number79 index78 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number80 index79 alt1"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript color1">}</code></div><div class="line number81 index80 alt2"><code class="applescript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="applescript keyword">return</code> <code class="applescript plain">newTab;</code></div><div class="line number82 index81 alt1"><code class="applescript color1">}</code></div></div></td></tr></tbody></table></div></div></div><br>
+<br>
+<font size="5"><strong>7. 总结</strong></font><br>
+<br>
+<div align="left">我们现在可以回答开始的几个问题，加深对HashMap的理解：</div><br>
+<div align="left">1. 什么时候会使用HashMap？他有什么特点？</div><div align="left"><br>
+是基于Map接口的实现，存储键值对时，它可以接收null的键值，是非同步的，HashMap存储着Entry(hash, key, value, next)对象。</div><br>
+<div align="left">2. 你知道HashMap的工作原理吗？</div><div align="left"><br>
+通过hash的方法，通过put和get存储和获取对象。存储对象时，我们将K/V传给put方法时，它调用hashCode计算hash从而得到bucket位置，进一步存储，HashMap会根据当前bucket的占用情况自动调整容量(超过Load Facotr则resize为原来的2倍)。获取对象时，我们将K传给get，它调用hashCode计算hash从而得到bucket位置，并进一步调用equals()方法确定键值对。如果发生碰撞的时候，Hashmap通过链表将产生碰撞冲突的元素组织起来，在Java 8中，如果一个bucket中碰撞冲突的元素超过某个限制(默认是8)，则使用红黑树来替换链表，从而提高速度。</div><br>
+<div align="left">3. 你知道get和put的原理吗？equals()和hashCode()的都有什么作用？</div><div align="left"><br>
+通过对key的hashCode()进行hashing，并计算下标( n-1 &amp; hash)，从而获得buckets的位置。如果产生碰撞，则利用key.equals()方法去链表或树中去查找对应的节点</div><br>
+<div align="left">4. 你知道hash的实现吗？为什么要这样实现？</div><div align="left"><br>
+在Java 1.8的实现中，是通过hashCode()的高16位异或低16位实现的：(h = k.hashCode()) ^ (h &gt;&gt;&gt; 16)，主要是从速度、功效、质量来考虑的，这么做可以在bucket的n比较小的时候，也能保证考虑到高低bit都参与到hash的计算中，同时不会有太大的开销。</div><br>
+<div align="left">5. 如果HashMap的大小超过了负载因子(load factor)定义的容量，怎么办？</div><div align="left"><br>
+如果超过了负载因子(默认0.75)，则会重新resize一个原来长度两倍的HashMap，并且重新调用hash方法。</div><br>
+<div align="left">关于Java集合的小抄中是这样描述的：</div><br>
+<blockquote><div align="left">以Entry[]数组实现的哈希桶数组，用Key的哈希值取模桶数组的大小可得到数组下标。</div><br>
+<div align="left">插入元素时，如果两条Key落在同一个桶(比如哈希值1和17取模16后都属于第一个哈希桶)，Entry用一个next属性实现多个Entry以单向链表存放，后入桶的Entry将next指向桶当前的Entry。</div><br>
+<div align="left">查找哈希值为17的key时，先定位到第一个哈希桶，然后以链表遍历桶里所有元素，逐个比较其key值。</div><br>
+<div align="left">当Entry数量达到桶数量的75%时(很多文章说使用的桶数量达到了75%，但看代码不是)，会成倍扩容桶数组，并重新分配所有原来的Entry，所以这里也最好有个预估值。</div><br>
+<div align="left">取模用位运算(hash &amp; (arrayLength-1))会比较快，所以数组的大小永远是2的N次方， 你随便给一个初始值比如17会转为32。默认第一次放入元素时的初始值是16。</div><br>
+<div align="left">iterator()时顺着哈希桶数组来遍历，看起来是个乱序。</div><br>
+<div align="left">在JDK8里，新增默认为8的閥值，当一个桶里的Entry超过閥值，就不以单向链表而以红黑树来存放以加快Key的查找速度。</div></blockquote><br>
+<br>
+<br>
+</td></tr></tbody></table>
+
+
+</div>
+<div id="comment_152817" class="cm">
+</div>
+
+<div id="post_rate_div_152817"></div>
+<div id="aliyun_cnzz_tui_1000072387" style="margin-top:5px"><iframe allowtransparency="true" frameborder="0" scrolling="no" style="float: none; display: block; overflow: hidden; z-index: 2147483646; margin: 0px; padding: 0px; border: 0px none; background-image: none; height: 366px; width: 778px; background-position: initial initial; background-repeat: initial initial;"></iframe></div></div>
+</div>
+
+</td></tr>
+<tr><td class="plc plm">
+<div id="p_btn" class="mtw mbm hm cl">
+<div class="tshare cl">
+<b>分享到:&nbsp;</b>
+
+
+<a href="http://www.aboutyun.com/home.php?mod=spacecp&ac=plugin&id=qqconnect:spacecp&pluginop=share&sh_type=4&thread_id=17420" id="k_share_to_qq" title="QQ好友和群" target="_blank"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/qq_share.png" alt="QQ好友和群">QQ好友和群</i></a>
+<a href="javascript:void(0);" id="k_qqshare" onclick="postToQzone();" title="QQ空间"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/qzone.gif" alt="QQ空间">QQ空间</i></a>
+<a href="javascript:void(0)" onclick="postToWb();" id="k_weiboshare" title="腾讯微博"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/weibo.png" alt="腾讯微博">腾讯微博</i></a>
+<a href="javascript:void(0);" onclick="postToPengyou();" id="k_pengyoushare" title="腾讯朋友"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/pengyou.png" alt="腾讯朋友">腾讯朋友</i></a>
+<script type="text/javascript">
+function postToWb(){
+var _t = encodeURI(document.title);
+var _url = encodeURIComponent(document.location);
+var _appkey = encodeURI("ce7fb946290e4109bdc9175108b6db3a");
+var _pic = "http%3A%2F%2Fwww.aboutyun.com%2Fforum.php%3Fmod%3Dimage%26aid%3D22588%26size%3D400x400%26key%3Dd481c2227b9a1ea5%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.aboutyun.com%2Fforum.php%3Fmod%3Dimage%26aid%3D22589%26size%3D400x400%26key%3D65c1934b0f734a01%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.aboutyun.com%2Fforum.php%3Fmod%3Dimage%26aid%3D22590%26size%3D400x400%26key%3D69daf0f3bd960c4c%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.aboutyun.com%2Fforum.php%3Fmod%3Dimage%26aid%3D22591%26size%3D400x400%26key%3Df208c0cd3d4de2c7%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.aboutyun.com%2Fforum.php%3Fmod%3Dimage%26aid%3D22592%26size%3D400x400%26key%3Dd435c5711c935765%26nocache%3Dyes%26type%3Dfixnone";
+var _site = encodeURIComponent("about云开发");
+var _from = 'discuz';
+var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t+'&from='+_from;
+window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+}
+function postToPengyou(){
+var _url = encodeURIComponent(document.location.href);
+var _site = encodeURIComponent("about云开发");
+var _title = encodeURIComponent("Java HashMap工作原理及实现");
+var _pics = "http%3A%2F%2Fwww.aboutyun.com%2Fforum.php%3Fmod%3Dimage%26aid%3D22588%26size%3D400x400%26key%3Dd481c2227b9a1ea5%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.aboutyun.com%2Fforum.php%3Fmod%3Dimage%26aid%3D22589%26size%3D400x400%26key%3D65c1934b0f734a01%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.aboutyun.com%2Fforum.php%3Fmod%3Dimage%26aid%3D22590%26size%3D400x400%26key%3D69daf0f3bd960c4c%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.aboutyun.com%2Fforum.php%3Fmod%3Dimage%26aid%3D22591%26size%3D400x400%26key%3Df208c0cd3d4de2c7%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.aboutyun.com%2Fforum.php%3Fmod%3Dimage%26aid%3D22592%26size%3D400x400%26key%3Dd435c5711c935765%26nocache%3Dyes%26type%3Dfixnone";
+var _from = 'discuz';
+var _u = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?to=pengyou&url='+_url+'&site='+_site+'&title='+_title+'&pics='+_pics+'&from='+_from;
+window.open(_u);
+}
+</script>
+	
+
+
+<a href="javascript:;" onclick="showWindow(&#39;wechat_share&#39;, &#39;plugin.php?id=wechat:qrcode&amp;threadqr=17420&amp;access=yes&amp;share=yes&#39;)"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/share.png" alt="微信">微信</i></a>
+
+
+
+</div>
+
+<a href="http://www.aboutyun.com/home.php?mod=spacecp&ac=favorite&type=thread&id=17420&formhash=7ba6d723" id="k_favorite" onclick="showWindow(this.id, this.href, &#39;get&#39;, 0);" onmouseover="this.title = $(&#39;favoritenumber&#39;).innerHTML + &#39; 人收藏&#39;" title="收藏本帖"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/fav.gif" alt="收藏">收藏<span id="favoritenumber" style="display:none">0</span></i></a>
+<a class="followp" href="http://www.aboutyun.com/home.php?mod=spacecp&ac=follow&op=relay&tid=17420&from=forum" onclick="showWindow(&#39;relaythread&#39;, this.href, &#39;get&#39;, 0);" title="转播求扩散"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/rt.png" alt="转播">转播</i></a>
+<a class="sharep" href="http://www.aboutyun.com/home.php?mod=spacecp&ac=share&type=thread&id=17420" onclick="showWindow(&#39;sharethread&#39;, this.href, &#39;get&#39;, 0);" title="分享推精华"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/oshr.png" alt="分享">分享</i></a>
+<a href="http://www.aboutyun.com/forum.php?mod=collection&action=edit&op=addthread&tid=17420" id="k_collect" onclick="showWindow(this.id, this.href);return false;" onmouseover="this.title = $(&#39;collectionnumber&#39;).innerHTML + &#39; 人淘帖&#39;" title="淘好帖进专辑"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/collection.png" alt="分享">淘帖<span id="collectionnumber" style="display:none">0</span></i></a>
+<a id="recommend_add" href="http://www.aboutyun.com/forum.php?mod=misc&action=recommend&do=add&tid=17420&hash=7ba6d723" onclick="showWindow(&#39;login&#39;, this.href)" onmouseover="this.title = $(&#39;recommendv_add&#39;).innerHTML + &#39; 人支持&#39;" title="顶一下"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/rec_add.gif" alt="支持">支持<span id="recommendv_add" style="display:none">0</span></i></a>
+<a id="recommend_subtract" href="http://www.aboutyun.com/forum.php?mod=misc&action=recommend&do=subtract&tid=17420&hash=7ba6d723" onclick="showWindow(&#39;login&#39;, this.href)" onmouseover="this.title = $(&#39;recommendv_subtract&#39;).innerHTML + &#39; 人反对&#39;" title="踩一下"><i><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/rec_subtract.gif" alt="反对">反对<span id="recommendv_subtract" style="display:none">0</span></i></a>
+</div>
+<div class="a_pb"><script type="text/javascript">
+var cpro_id="u1995025";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"750",rsi1:"250",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script></div></td>
+</tr>
+<tr id="_postposition152817"></tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po hin">
+<div class="pob cl">
+<em>
+<a class="fastre" href="http://www.aboutyun.com/forum.php?mod=post&action=reply&fid=117&tid=17420&reppost=152817&extra=page%3D1&page=1" onclick="showWindow(&#39;reply&#39;, this.href)">回复</a>
+</em>
+
+<p>
+<a href="javascript:;" id="mgc_post_152817" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow(&#39;miscreport152817&#39;, &#39;misc.php?mod=report&amp;rtype=post&amp;rid=152817&amp;tid=17420&amp;fid=117&#39;, &#39;get&#39;, -1);return false;">举报</a>
+</p>
+
+<ul id="mgc_post_152817_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="http://www.aboutyun.com/home.php?mod=magic&mid=bump&idtype=tid&id=17420" id="a_bump" onclick="showWindow(this.id, this.href)"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/bump.small.gif">提升卡</a></li>
+<li><a href="http://www.aboutyun.com/home.php?mod=magic&mid=stick&idtype=tid&id=17420" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/stick.small.gif">置顶卡</a></li>
+<li><a href="http://www.aboutyun.com/home.php?mod=magic&mid=close&idtype=tid&id=17420" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/close.small.gif">沉默卡</a></li>
+<li><a href="http://www.aboutyun.com/home.php?mod=magic&mid=open&idtype=tid&id=17420" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/open.small.gif">喧嚣卡</a></li>
+<li><a href="http://www.aboutyun.com/home.php?mod=magic&mid=highlight&idtype=tid&id=17420" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/highlight.small.gif">变色卡</a></li>
+<li><a href="http://www.aboutyun.com/home.php?mod=magic&mid=jack&idtype=tid&id=17420" id="a_jack" onclick="showWindow(this.id, this.href)"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/jack.small.gif">千斤顶</a></li>
+<li><a href="http://www.aboutyun.com/home.php?mod=magic&mid=namepost&idtype=pid&id=152817:17420" id="a_namepost_152817" onclick="showWindow(this.id, this.href)"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/namepost.small.gif">显身卡</a></li><li>
+</li></ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_152817')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls">
+</td>
+<td class="plc">
+</td>
+</tr>
+</tbody></table>
+<script type="text/javascript" reload="1">
+aimgcount[152817] = ['Bz76f','22588','22589','22590','22591','22592'];
+attachimggroup(152817);
+var aimgfid = 0;
+</script>
+</div><div id="postlistreply" class="pl"><div id="post_new" class="viewthread_table" style="display: none"></div></div>
+</div>
+
+
+<form method="post" autocomplete="off" name="modactions" id="modactions">
+<input type="hidden" name="formhash" value="7ba6d723">
+<input type="hidden" name="optgroup">
+<input type="hidden" name="operation">
+<input type="hidden" name="listextra" value="page%3D1">
+<input type="hidden" name="page" value="1">
+</form>
+
+
+
+<div class="pgs mtm mbm cl">
+<span class="pgb y" id="visitedforumstmp" onmouseover="$(&#39;visitedforums&#39;).id = &#39;visitedforumstmp&#39;;this.id = &#39;visitedforums&#39;;showMenu({&#39;ctrlid&#39;:this.id,&#39;pos&#39;:&#39;21&#39;})"><a href="http://www.aboutyun.com/forum-117-1.html">返回列表</a></span>
+<a id="newspecialtmp" onmouseover="$(&#39;newspecial&#39;).id = &#39;newspecialtmp&#39;;this.id = &#39;newspecial&#39;;showMenu({&#39;ctrlid&#39;:this.id})" onclick="showWindow(&#39;newthread&#39;, &#39;forum.php?mod=post&amp;action=newthread&amp;fid=117&#39;)" href="javascript:;" title="发新帖"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/pn_post.png" alt="发新帖"></a>
+</div>
+
+<!--[diy=diyfastposttop]--><div id="diyfastposttop" class="area"></div><!--[/diy]-->
+<script type="text/javascript">
+var postminchars = parseInt('6');
+var postmaxchars = parseInt('70000');
+var disablepostctrl = parseInt('0');
+</script>
+
+<div id="f_pst" class="pl bm bmw">
+<form method="post" autocomplete="off" id="fastpostform" action="http://www.aboutyun.com/forum.php?mod=post&action=reply&fid=117&tid=17420&extra=page%3D1&replysubmit=yes&infloat=yes&handlekey=fastpost" onsubmit="return fastpostvalidate(this)">
+<table cellspacing="0" cellpadding="0">
+<tbody><tr>
+<td class="pls">
+</td>
+<td class="plc">
+
+<span id="fastpostreturn"></span>
+
+
+<div class="cl">
+<div id="fastsmiliesdiv" class="y"><div id="fastsmiliesdiv_data"><div id="fastsmilies"></div></div></div><div class="hasfsl" id="fastposteditor">
+<div class="tedt mtn">
+<div class="bar">
+<span class="y">
+<a href="http://www.aboutyun.com/forum.php?mod=post&action=reply&fid=117&tid=17420" onclick="return switchAdvanceMode(this.href)">高级模式</a>
+</span><script src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/seditor.js" type="text/javascript"></script>
+<div class="fpd">
+<a href="javascript:;" title="文字加粗" class="fbld">B</a>
+<a href="javascript:;" title="设置文字颜色" class="fclr" id="fastpostforecolor">Color</a>
+<a id="fastpostimg" href="javascript:;" title="图片" class="fmg">Image</a>
+<a id="fastposturl" href="javascript:;" title="添加链接" class="flnk">Link</a>
+<a id="fastpostquote" href="javascript:;" title="引用" class="fqt">Quote</a>
+<a id="fastpostcode" href="javascript:;" title="代码" class="fcd">Code</a>
+<a href="javascript:;" class="fsml" id="fastpostsml">Smilies</a>
+</div></div>
+<div class="area">
+<div class="pt hm">
+您需要登录后才可以回帖 <a href="http://www.aboutyun.com/member.php?mod=logging&action=login" onclick="showWindow(&#39;login&#39;, this.href)" class="xi2">登录</a> | <a href="http://www.aboutyun.com/member.php?mod=register" class="xi2">立即注册</a>
+
+
+<a href="http://www.aboutyun.com/connect.php?mod=login&op=init&referer=forum.php%3Fmod%3Dviewthread%26tid%3D17420%26extra%3Dpage%253D1%26page%3D1%26&statfrom=login" target="_top" rel="nofollow"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/qq_login.gif" class="vm"></a>
+
+
+<a href="http://www.aboutyun.com/plugin.php?id=wechat:login"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/wechat_login.png" class="vm"></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="seccheck_fastpost">
+</div>
+
+
+<input type="hidden" name="formhash" value="7ba6d723">
+<input type="hidden" name="usesig" value="">
+<input type="hidden" name="subject" value="  ">
+<p class="ptm pnpost">
+<a href="http://www.aboutyun.com/home.php?mod=spacecp&ac=credit&op=rule&fid=117" class="y" target="_blank">本版积分规则</a>
+<button type="button" onclick="showWindow(&#39;login&#39;, &#39;member.php?mod=logging&amp;action=login&amp;guestmessage=yes&#39;)" onmouseover="checkpostrule(&#39;seccheck_fastpost&#39;, &#39;ac=reply&#39;);this.onmouseover=null" name="replysubmit" id="fastpostsubmit" class="pn pnc vm" value="replysubmit" tabindex="5"><strong>发表回复</strong></button>
+<label class="lb"><input type="checkbox" name="adddynamic" class="pc" value="1">回帖并转播</label>
+<label for="fastpostrefresh"><input id="fastpostrefresh" type="checkbox" class="pc">回帖后跳转到最后一页</label>
+<script type="text/javascript">if(getcookie('fastpostrefresh') == 1) {$('fastpostrefresh').checked=true;}</script>
+</p>
+</td>
+</tr>
+</tbody></table>
+</form>
+</div>
+
+<script type="text/javascript">
+var connect_qzone_share_url = '';
+var connect_weibo_share_url = '';
+var connect_thread_info = {
+thread_url: 'http://www.aboutyun.com/thread-17420-1-1.html',
+thread_id: '17420',
+post_id: '',
+forum_id: '117',
+author_id: '',
+author: ''
+};
+
+connect_autoshare = '';
+connect_isbind = '';
+if(connect_autoshare == 1 && connect_isbind) {
+_attachEvent(window, 'load', function(){
+connect_share(connect_weibo_share_url, connect_openid);
+});
+}
+</script>
+
+
+<div id="visitedforums_menu" class="p_pop blk cl" style="display: none;">
+<table cellspacing="0" cellpadding="0">
+<tbody><tr>
+<td id="v_forums">
+<h3 class="mbn pbn bbda xg1">浏览过的版块</h3>
+<ul class="xl xl1">
+<li><a href="http://www.aboutyun.com/forum-123-1.html">云技术基础</a></li><li><a href="http://www.aboutyun.com/forum-224-1.html">Linux</a></li></ul>
+</td>
+</tr>
+</tbody></table>
+</div>
+<script type="text/javascript">
+new lazyload();
+</script>
+<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, 0, 0, 'forum.php?mod=viewthread&tid=17420', 1);}</script>
+</div>
+
+<div class="wp mtn">
+<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+
+<script type="text/javascript">
+function succeedhandle_followmod(url, msg, values) {
+var fObj = $('followmod_'+values['fuid']);
+if(values['type'] == 'add') {
+fObj.innerHTML = '不收听';
+fObj.href = 'home.php?mod=spacecp&ac=follow&op=del&fuid='+values['fuid'];
+} else if(values['type'] == 'del') {
+fObj.innerHTML = '收听TA';
+fObj.href = 'home.php?mod=spacecp&ac=follow&op=add&hash=7ba6d723&fuid='+values['fuid'];
+}
+}
+fixed_avatar([152817], 1);
+</script>	</div>
+<div class="focus" id="sitefocus">
+<div class="bm">
+<div class="bm_h cl">
+<a href="javascript:;" onclick="setcookie(&#39;nofocus_forum&#39;, 1, 1*3600);$(&#39;sitefocus&#39;).style.display=&#39;none&#39;" class="y" title="关闭">关闭</a>
+<h2>
+站长推荐<span id="focus_ctrl" class="fctrl"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/pic_nv_prev.gif" alt="上一条" title="上一条" id="focusprev" class="cur1" onclick="showfocus(&#39;prev&#39;);"> <em><span id="focuscur">4</span>/6</em> <img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/pic_nv_next.gif" alt="下一条" title="下一条" id="focusnext" class="cur1" onclick="showfocus(&#39;next&#39;)"></span>
+</h2>
+</div>
+<div class="bm_c" id="focus_con">
+<dl class="xld cl bbda">
+<dt><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-4627152322.3.B40ilL&id=520413355976" class="xi2" target="_blank">大数据零基础由入门到实战</a></dt>
+<dd>大数据零基础由入门到实战
+阶段1：hadoop零基础入门基础篇
+阶段2：hadoop2入门
+阶段3：大数据非hadoop系列课程
+阶段4：项目实战篇
+阶段5：大数据高级系列应用课程
+阶段6：工作实用系列教程</dd>
+</dl>
+<p class="ptn cl"><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-4627152322.3.B40ilL&id=520413355976" class="xi2 y" target="_blank">查看 &#187;</a></p>
+</div>
+</div>
+</div><div class="bm_c" style="display: none" id="focus_0">
+<dl class="xld cl bbda">
+<dt><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-4627152322.7.iLGs7U&id=522548227466" class="xi2" target="_blank">about云|新出视频，最新版本kilo版已更新</a></dt>
+<dd>about云|新出视频，openstack零基础入门，解决你ping不通外网难题</dd>
+</dl>
+<p class="ptn cl"><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-4627152322.7.iLGs7U&id=522548227466" class="xi2 y" target="_blank">查看 &#187;</a></p>
+</div><div class="bm_c" style="display: none" id="focus_1">
+<dl class="xld cl bbda">
+<dt><a href="http://item.taobao.com/item.htm?spm=686.1000925.1000774.19.KEtRLI&id=36040179929" class="xi2" target="_blank">捐助云计算hadoop视频大全(新增 yarn、flume|storm、hadoop一套视频</a></dt>
+<dd>云计算hadoop视频大全(新增 yarn、flume|storm、hadoop一套视频</dd>
+</dl>
+<p class="ptn cl"><a href="http://item.taobao.com/item.htm?spm=686.1000925.1000774.19.KEtRLI&id=36040179929" class="xi2 y" target="_blank">查看 &#187;</a></p>
+</div><div class="bm_c" style="display: none" id="focus_2">
+<dl class="xld cl bbda">
+<dt><a href="http://aboutyun.taobao.com/" class="xi2" target="_blank">捐助：视频资料大优惠</a></dt>
+<dd>视频资料大优惠</dd>
+</dl>
+<p class="ptn cl"><a href="http://aboutyun.taobao.com/" class="xi2 y" target="_blank">查看 &#187;</a></p>
+</div><div class="bm_c" style="display: none" id="focus_3">
+<dl class="xld cl bbda">
+<dt><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-4627152322.3.B40ilL&id=520413355976" class="xi2" target="_blank">大数据零基础由入门到实战</a></dt>
+<dd>大数据零基础由入门到实战
+阶段1：hadoop零基础入门基础篇
+阶段2：hadoop2入门
+阶段3：大数据非hadoop系列课程
+阶段4：项目实战篇
+阶段5：大数据高级系列应用课程
+阶段6：工作实用系列教程</dd>
+</dl>
+<p class="ptn cl"><a href="https://item.taobao.com/item.htm?spm=a1z10.1-c.w4004-4627152322.3.B40ilL&id=520413355976" class="xi2 y" target="_blank">查看 &#187;</a></p>
+</div><div class="bm_c" style="display: none" id="focus_4">
+<dl class="xld cl bbda">
+<dt><a href="http://www.aboutyun.com/thread-10863-1-1.html" class="xi2" target="_blank">等待验证会员请验证邮箱</a></dt>
+<dd>等待验证会员请验证邮箱</dd>
+</dl>
+<p class="ptn cl"><a href="http://www.aboutyun.com/thread-10863-1-1.html" class="xi2 y" target="_blank">查看 &#187;</a></p>
+</div><div class="bm_c" style="display: none" id="focus_5">
+<dl class="xld cl bbda">
+<dt><a href="http://www.aboutyun.com/thread-5118-1-1.html" class="xi2" target="_blank">新手获取积分方法</a></dt>
+<dd>新手获取积分方法</dd>
+</dl>
+<p class="ptn cl"><a href="http://www.aboutyun.com/thread-5118-1-1.html" class="xi2 y" target="_blank">查看 &#187;</a></p>
+</div><script type="text/javascript">
+var focusnum = 6;
+if(focusnum < 2) {
+$('focus_ctrl').style.display = 'none';
+}
+if(!$('focuscur').innerHTML) {
+var randomnum = parseInt(Math.round(Math.random() * focusnum));
+$('focuscur').innerHTML = Math.max(1, randomnum);
+}
+showfocus();
+var focusautoshow = window.setInterval('showfocus(\'next\', 1);', 5000);
+</script>
+<div class="wp a_f"><script type="text/javascript">
+    /*主题链接页尾与也顶960*90，创建于2014-4-8*/
+    var cpro_id = "u1515710";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div><div class="a_cn" style=""><p class="close" id="ad_corner_close" onclick="setcookie(&#39;adclose_25&#39;, 1, 86400);this.parentNode.style.display=&#39;none&#39;"><a href="javascript:;"><img src="http://www.aboutyun.com/static/image/common/ad_close.gif" style="display: none !important;"></a></p><script type="text/javascript">
+var cpro_id="u2202702";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"300",rsi1:"250",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script></div>
+
+<script src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/qshare.js" type="text/javascript"></script><script type="text/javascript">_share_tencent_weibo(null, $C("t_f", null, "td"), "", "ce7fb946290e4109bdc9175108b6db3a", "about云开发");</script>
+
+
+
+<div id="wechat_float_qrcode" class="p_pop xg1" style="text-align: center; float: left; position: fixed; top: 220px; z-index: 100; margin-left: 2px; width: 110px; left: 1131px; right: auto;">
+<p class="cl"><img class="y" style="cursor: pointer; display: none !important;" onclick="display(&#39;wechat_float_qrcode&#39;);setcookie(&#39;wechatfqrc&#39;, 1, 86400)" src="http://www.aboutyun.com/static/image/common/ad_close.gif"></p>
+<img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/plugin.php" width="98">
+<p>about云微社区</p>
+</div>
+<script>
+function wechat_qrcode(type) {
+if(type && $('wechat_float_qrcode').style.display == 'none') {
+return;
+}
+var qrleft = parseInt($('ft').clientWidth + parseInt(fetchOffset($('ft'))['left']));
+$('wechat_float_qrcode').style.display = '';
+if(qrleft + $('wechat_float_qrcode').clientWidth > document.documentElement.clientWidth) {
+$('wechat_float_qrcode').style.cssFloat = 'right';
+$('wechat_float_qrcode').style.left = 'auto';
+$('wechat_float_qrcode').style.right = 0;
+} else {
+$('wechat_float_qrcode').style.cssFloat = 'left';
+$('wechat_float_qrcode').style.left = (qrleft) + 'px';
+$('wechat_float_qrcode').style.right = 'auto';
+}
+}
+_attachEvent(window, 'scroll', function () { wechat_qrcode(1); })
+_attachEvent(window, 'load', function() { wechat_qrcode(0); }, document);
+</script>
+
+<script>
+(function () {
+   if (typeof(aliyun_recommend_opts) == "object") {
+      var key = [];
+      for (var i in aliyun_recommend_opts) {
+         key.push(i);
+      }
+      var img = new Image();
+      var d = new Date().getTime();
+      img.onload = function () {
+         img = null;
+      }
+      img.onerror = function () {
+         img = null;
+      }
+      var Src = "http://rc.so.cnzz.net/stat.gif?url=" + encodeURIComponent(window.location.href) + "&ts=" + d;
+      for (var i = 0; i < key.length; i++) {
+      	 if (key[i] == 'url') continue;
+         if (aliyun_recommend_opts[key[i]]) {
+            Src += "&" + key[i] + "=" + encodeURIComponent(aliyun_recommend_opts[key[i]]);
+         }
+      }
+      if (key[0]) {
+         img.src = Src;
+      }
+   }
+})();
+</script><script>var aliyun_recommend_apps = new Array();aliyun_recommend_apps.push('http://tui.cnzz.net/api.php?id=1000072387');var aliyun_recommend_apps_request = {
+	init : function () {
+		var extraParams = "&v=aliyunrec_v2.3_for_discuz_x2.5";
+		 var url = "",box,pl,pr,cw,anchorid;
+		extraParams += this.getTitle() + this.getUrl() + this.getKeyword() + this.getCharset();
+		for(var i=0;i<aliyun_recommend_apps.length;i++) {
+			cw = '';
+			anchorid = "aliyun_cnzz_tui_"+aliyun_recommend_apps[i].replace(/[^0-9]/ig,"");
+			box = document.getElementById(anchorid)||'';
+			if(box){
+				pl = parseInt(getStyle(box,'paddingLeft')) || 0;
+				pr = parseInt(getStyle(box,'paddingRight')) || 0;
+				cw = parseInt(box.offsetWidth)-pl-pr;
+				cw = "&cw="+cw;
+			}
+			url = aliyun_recommend_apps[i] + extraParams + cw;
+			this.loadScript(url);
+		}
+		function getStyle(obj,styleName){
+		if(obj.currentStyle){
+			return obj.currentStyle[styleName];
+		}else{
+			var arr;
+			(window.getComputedStyle(obj, null)) && (arr = window.getComputedStyle(obj, null)[styleName]||null);
+			return arr;
+		}
+	  }
+	},
+	getTitle : function () {
+		var title = document.title;
+		return (title) ? ('&title=' + encodeURIComponent(title)) : '';
+	},
+	getUrl : function () {
+		var url = window.location.href;
+		return (url) ? ('&surl=' + encodeURIComponent(url)) : '';
+	},
+	getCharset : function () {
+		var charset = (document.charset) ? document.charset : document.characterSet;
+		return '&charset=' + charset;
+	},
+	getKeyword : function () {
+		referer = document.referrer ? document.referrer : '';
+		if (!referer) return '';
+		var keyword = "";
+		keyword = this.getQueryString("wd", referer);
+		if (keyword == "") {
+			keyword = this.getQueryString("q", referer);
+		}
+		if (keyword == "") {
+			keyword = this.getQueryString("word", referer);
+		}
+		if (keyword == "") {
+			keyword = this.getQueryString("query", referer);
+		}
+		if (keyword == "") {
+			keyword = this.getQueryString("search", referer);
+		}
+		if (keyword == "") {
+			keyword = this.getQueryString("keyword", referer);
+		}
+		if (keyword == "") {
+			keyword = this.getQueryString("kw", referer);
+		}
+		if (keyword == "") {
+			keyword = this.getQueryString("w", referer);
+		}
+		if (keyword == "") {
+			keyword = this.getQueryString("p", referer);
+		}
+		return (keyword) ? ('&keyword=' + encodeURIComponent(keyword)) : '';
+	},
+	getQueryString : function (name, urls) {
+		var regString = "(^|\\?|&)"+name+"=([^&]*)(\\s|&|$)";
+		var reg = new RegExp(regString,"i");
+		if (reg.test(urls))
+			return RegExp.$2.replace(/\+/g, " ");
+		return "";
+	},
+	loadScript : function (url) {
+		url = url + "&ts=" + new Date().getTime();
+		var s = document.createElement("script");
+		s.charset = "utf-8";
+		s.async = 1;
+		s.src = url;
+		document.body.insertBefore(s, document.body.firstChild);
+	}
+};
+aliyun_recommend_apps_request.init();</script>
+<script type="text/javascript">
+function mw_syntaxhighlighter_show_editor_codebox(editortype) {
+var tag = 'code';
+var mw_syntaxhighlighter_tag = 'mw_shl_code';
+var str = '请输入要插入的代码<br>选择语言：';
+str += '<select id="brush_lang" name="lang">';str += '<option value="applescript">AppleScript</option>';
+str += '<option value="actionscript3">Actionscript3</option>';
+str += '<option value="bash">Bash shell</option>';
+str += '<option value="coldfusion">ColdFusion</option>';
+str += '<option value="c">C</option>';
+str += '<option value="cpp">C++</option>';
+str += '<option value="csharp">C#</option>';
+str += '<option value="css">CSS</option>';
+str += '<option value="delphi">Delphi</option>';
+str += '<option value="diff">Diff</option>';
+str += '<option value="erlang">Erlang</option>';
+str += '<option value="groovy">Groovy</option>';
+str += '<option value="html">HTML</option>';
+str += '<option value="java">Java</option>';
+str += '<option value="javafx">JavaFX</option>';
+str += '<option value="javascript">JavaScript</option>';
+str += '<option value="pascal">Pascal</option>';
+str += '<option value="patch">Patch</option>';
+str += '<option value="perl">Perl</option>';
+str += '<option value="php">PHP</option>';
+str += '<option value="text">Plain Text</option>';
+str += '<option value="powershell">PowerShell</option>';
+str += '<option value="python">Python</option>';
+str += '<option value="ruby">Ruby</option>';
+str += '<option value="rails">Ruby on Rails</option>';
+str += '<option value="sass">Sass</option>';
+str += '<option value="scala">Scala</option>';
+str += '<option value="scss">Scss</option>';
+str += '<option value="shell">Shell</option>';
+str += '<option value="sql">SQL</option>';
+str += '<option value="vb">Visual Basic</option>';
+str += '<option value="vbnet">Visual Basic .NET</option>';
+str += '<option value="xhtml">XHTML</option>';
+str += '<option value="xml">XML</option>';
+str += '<option value="xslt">XSLT</option>';
+str += '<option value="objc">Objective-C</option>';
+str += '<option value="asm">Asm</option>';
+str += '<option value="aauto">AAuto</option>';
+str += '<option value="golang">Golang</option>';
+
+str += '</select><br>';
+
+str += '显示行号：';
+str += '<input type="checkbox" id="show_gutter" name="show_gutter" value="1" checked><br>';
+
+
+if(editortype == 'newthread') {
+
+var sel, selection;
+var str1 = '', strdialog = 0, stitle = '';
+var ctrlid = editorid + '_' + tag;
+var menu = $(ctrlid + '_menu');
+var pos = [0, 0];
+var menuwidth = 270;
+var menupos = '43!';
+var menutype = 'menu';
+
+str += '<div id="mw_codearea">你的代码：<br>';
+str += '<textarea id="' + ctrlid + '_param_1" style="width: 98%" cols="50" rows="5" class="txtarea"></textarea></div>';
+
+//note 修改了ie下的不兼容问题
+if(BROWSER.ie) {
+if(wysiwyg) {
+editdoc.body.focus();
+sel = editdoc.selection.createRange();
+} else {
+sel = document.selection.createRange();
+}
+pos = getCaret();
+}
+
+selection = sel ? (wysiwyg ? sel.text : sel.text) : mw_highlighter_getSel();//note 修改sel.HtmlText修改为Text，编辑器中的可视化用插件实现比较困难
+if(menu) {
+if($(ctrlid).getAttribute('menupos') !== null) {
+menupos = $(ctrlid).getAttribute('menupos');
+}
+if($(ctrlid).getAttribute('menuwidth') !== null) {
+menu.style.width = $(ctrlid).getAttribute('menuwidth') + 'px';
+}
+
+if(selection) {//note 如果选择了内容的处理
+$('mw_codearea').style.display = 'none';
+}
+
+showMenu({'ctrlid':ctrlid,'evt':'click','pos':menupos,'timeout':250,'duration':in_array(tag, ['fontname', 'fontsize', 'sml']) ? 2 : 3,'drag':1});
+} else {
+
+var menu = document.createElement('div');
+menu.id = ctrlid + '_menu';
+menu.style.display = 'none';
+menu.className = 'p_pof upf';
+menu.style.width = menuwidth + 'px';
+
+s = '<div class="p_opt cl"><span class="y" style="margin:-10px -10px 0 0"><a onclick="hideMenu();return false;" class="flbc" href="javascript:;">关闭</a></span><div>' + str + '</div><div class="pns mtn"><button type="submit" id="' + ctrlid + '_submit" class="pn pnc"><strong>提交</strong></button></div></div>';
+menu.innerHTML = s;
+$(editorid + '_editortoolbar').appendChild(menu);
+
+if(selection) {//note 如果选择了内容的处理
+$('mw_codearea').style.display = 'none';
+}
+
+showMenu({'ctrlid':ctrlid,'mtype':menutype,'evt':'click','duration':3,'cache':0,'drag':1,'pos':menupos});
+}
+
+try {
+if($(ctrlid + '_param_1')) {
+$(ctrlid + '_param_1').focus();
+}
+} catch(e) {}
+var objs = menu.getElementsByTagName('*');
+for(var i = 0; i < objs.length; i++) {
+_attachEvent(objs[i], 'keydown', function(e) {
+e = e ? e : event;
+obj = BROWSER.ie ? event.srcElement : e.target;
+if((obj.type == 'text' && e.keyCode == 13) || (obj.type == 'textarea' && e.ctrlKey && e.keyCode == 13)) {
+if($(ctrlid + '_submit') && tag != 'image') $(ctrlid + '_submit').click();
+doane(e);
+} else if(e.keyCode == 27) {
+hideMenu();
+doane(e);
+}
+});
+}
+if($(ctrlid + '_submit')) $(ctrlid + '_submit').onclick = function() {
+checkFocus();
+if(BROWSER.ie && wysiwyg) {
+setCaret(pos[0]);
+}
+if(wysiwyg) {
+if(!BROWSER.ie) {
+selection = selection ? selection : '';
+}
+}
+str1 = $(ctrlid + '_param_1') && $(ctrlid + '_param_1').value ? $(ctrlid + '_param_1').value : (selection ? selection : '');
+
+var opentag = '[' + mw_syntaxhighlighter_tag + '=' + $('brush_lang').value + ',' + (($('show_gutter') && $('show_gutter').checked) ? 'true' : 'false') + ']';
+var closetag = '[/' + mw_syntaxhighlighter_tag + ']';
+
+if(wysiwyg) {
+str1 = preg_replace(['<', '>'], ['&lt;', '&gt;'], str1);
+
+str1 = str1.replace(/\r?\n/g, '<br />');
+}
+str1 = opentag + str1 + closetag;
+insertText(str1, strlen(opentag), strlen(closetag), false, sel);
+hideMenu();
+};
+
+} else if(editortype == 'fastpost' || editortype == 'post') {
+
+var sel = false;
+var seditorkey = editortype;
+if(!isUndefined($(seditorkey + 'message').selectionStart)) {
+sel = $(seditorkey + 'message').selectionEnd - $(seditorkey + 'message').selectionStart;
+} else if(document.selection && document.selection.createRange) {
+$(seditorkey + 'message').focus();
+var sel = document.selection.createRange();
+$(seditorkey + 'message').sel = sel;
+sel = sel.text ? true : false;
+}
+
+var ctrlid = seditorkey + tag;
+var menuid = ctrlid + '_menu';
+
+str += '<div id="mw_codearea">你的代码：<br>';
+str += '<textarea id="' + ctrlid + '_param_1" style="width: 98%" cols="50" rows="5" class="txtarea"></textarea></div>';
+
+if(!$(menuid)) {
+var submitstr = "seditor_insertunit('" + seditorkey + "', '[" + mw_syntaxhighlighter_tag + "=' + $('brush_lang').value + ',' + (($('show_gutter') && $('show_gutter').checked) ? 'true' : 'false') + ']'+$('" + ctrlid + "_param_1').value, '[/" + mw_syntaxhighlighter_tag + "]', null, 1);hideMenu();";
+var menu = document.createElement('div');
+menu.id = menuid;
+menu.style.display = 'none';
+menu.className = 'p_pof upf';
+menu.style.width = '270px';
+$('append_parent').appendChild(menu);
+menu.innerHTML = '<span class="y"><a onclick="hideMenu()" class="flbc" href="javascript:;">关闭</a></span><div class="p_opt cl"><form onsubmit="' + submitstr + ';return false;" autocomplete="off"><div>' + str + '</div><div class="pns mtn"><button type="submit" id="' + ctrlid + '_submit" class="pn pnc"><strong>提交</strong></button><button type="button" onClick="hideMenu()" class="pn"><em>取消</em></button></div></form></div>';
+}
+if(sel) {//note 如果选择了内容的处理
+$('mw_codearea').style.display = 'none';
+}
+showMenu({'ctrlid':ctrlid,'evt':'click','duration':3,'cache':0,'drag':1});
+}
+}
+
+function mw_highlighter_getSel() {
+if(wysiwyg) {
+try {
+selection = editwin.getSelection();
+return selection.toString();
+//checkFocus();
+//range = selection ? selection.getRangeAt(0) : editdoc.createRange();
+//return readNodes(range.cloneContents(), false);
+} catch(e) {
+try {
+var range = editdoc.selection.createRange();
+if(range.htmlText && range.text) {
+return range.text;
+} else {
+var htmltext = '';
+for(var i = 0; i < range.length; i++) {
+htmltext += range.item(i).outerHTML;
+}
+return htmltext;
+}
+} catch(e) {
+return '';
+}
+}
+} else {
+if(!isUndefined(editdoc.selectionStart)) {
+return editdoc.value.substr(editdoc.selectionStart, editdoc.selectionEnd - editdoc.selectionStart);
+} else if(document.selection && document.selection.createRange) {
+return document.selection.createRange().text;
+} else if(window.getSelection) {
+alert(editdoc);
+return window.getSelection() + '';
+} else {
+return false;
+}
+}
+}
+</script>
+<script type="text/javascript" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/mw_syntaxhighlighter.js"></script><script type="text/javascript" reload="1">mw_syntaxhighlighter("fastpost");</script>
+<!-- mw_syntaxhighlighter ver.3.0.83 Begin -->
+<script type="text/javascript" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/shCore.js"></script>
+<script type="text/javascript" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/shAutoloader.js"></script>
+<script type="text/javascript" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/shBrushXml.js"></script>
+<script type="text/javascript">//<![CDATA[
+	SyntaxHighlighter.autoloader(
+	"applescript	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAppleScript.js?ver=3.0.83"
+	,"as3 actionscript3	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAS3.js?ver=3.0.83"
+	,"bash shell	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushBash.js?ver=3.0.83"
+	,"cf coldfusion	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushColdFusion.js?ver=3.0.83"
+	,"cpp c	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js?ver=3.0.83"
+	,"c# c-sharp csharp	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCSharp.js?ver=3.0.83"
+	,"css	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCss.js?ver=3.0.83"
+	,"delphi pas pascal	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDelphi.js?ver=3.0.83"
+	,"diff patch	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDiff.js?ver=3.0.83"
+	,"erl erlang	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushErlang.js?ver=3.0.83"
+	,"groovy	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushGroovy.js?ver=3.0.83"
+	,"java	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJava.js?ver=3.0.83"
+	,"jfx javafx	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJavaFX.js?ver=3.0.83"
+	,"js jscript javascript	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJScript.js?ver=3.0.83"
+	,"perl pl	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPerl.js?ver=3.0.83"
+	,"php	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPhp.js?ver=3.0.83"
+	,"plain text	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPlain.js?ver=3.0.83"
+	,"ps powershell	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPowerShell.js?ver=3.0.83"
+	,"py python	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPython.js?ver=3.0.83"
+	,"rails ror ruby rb	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushRuby.js?ver=3.0.83"
+	,"sass scss	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSass.js?ver=3.0.83"
+	,"scala	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushScala.js?ver=3.0.83"
+	,"sql	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSql.js?ver=3.0.83"
+	,"vb vbnet	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushVb.js?ver=3.0.83"
+	,"xml xhtml xslt html	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js?ver=3.0.83"
+	,"objc	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushObjC.js?ver=3.0.83"
+	,"asm	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAsm.js?ver=3.0.83"
+	,"aauto	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAAuto.js?ver=3.0.83"
+	,"go golang	http://www.aboutyun.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushGo.js?ver=3.0.83"
+	);
+	SyntaxHighlighter.defaults['auto-links'] = true;
+	SyntaxHighlighter.defaults['quick-code'] = true;
+	SyntaxHighlighter.defaults['title'] = '';
+	SyntaxHighlighter.defaults['class-name'] = 'notranslate';
+	SyntaxHighlighter.defaults['collapse'] = false;
+	SyntaxHighlighter.defaults['first-line'] = 1;
+	SyntaxHighlighter.defaults['gutter'] = true;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = 1;
+	SyntaxHighlighter.defaults['smart-tabs'] = true;
+	SyntaxHighlighter.defaults['tab-size'] = 4;
+	SyntaxHighlighter.defaults['toolbar'] = true;
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter';
+	SyntaxHighlighter.config.strings.noBrush = "Can\'t find brush for: ";
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = "Brush wasn\'t configured for html-script option: ";
+	SyntaxHighlighter.all();
+	
+//]]></script>
+<!-- mw_syntaxhighlighter ver.3.0.83 End -->
+
+<script type="text/javascript">
+(function() {
+var viewsource = [];
+var copycode = [];
+if(document.getElementsByClassName) {
+viewsource = document.getElementsByClassName('viewsource');
+copycode = document.getElementsByClassName('copycode');
+} else {
+var emlist = document.getElementsByTagName('em');
+for(var i=0;i<emlist.length;i++) {
+if(emlist[i].className == 'viewsource') {
+viewsource.push(emlist[i]);
+} else if(emlist[i].className == 'copycode') {
+copycode.push(emlist[i]);
+}
+}
+}
+function mw_code_toolbar_addevent(objs, eventtype) {
+for(var i=0; i<objs.length; i++) {
+if(objs[i].id != undefined) {
+objs[i].setAttribute('num', i);
+objs[i].onclick = function() {
+var highlighters = SyntaxHighlighter.vars.highlighters;
+var k = 0;
+var num = this.getAttribute('num');
+for(var i in highlighters) {
+if(k == num) {
+if(eventtype == 'viewcode') {
+mw_viewcode_execute(highlighters[i]);
+} else if(eventtype == 'copycode') {
+mw_copycode_execute(highlighters[i]);
+}
+break;
+}
+k++;
+}
+return false;
+}
+}
+}
+}
+if(viewsource) {
+mw_code_toolbar_addevent(viewsource, 'viewcode');
+}
+if(copycode) {
+mw_code_toolbar_addevent(copycode, 'copycode');
+}
+function mw_viewcode_execute(highlighter) {
+var code = mw_get_code(highlighter);
+code = mw_fixinputstring(code).replace(/</g, '&lt;');
+var wnd = mw_popup('', '_blank', 750, 400, 'location=0, resizable=1, menubar=0, scrollbars=1');
+code = mw_unindent(code);
+wnd.document.write('<pre>' + code + '</pre>');
+wnd.document.close();
+}
+function mw_copycode_execute(highlighter) {
+var code = mw_get_code(highlighter);
+code = mw_fixinputstring(code)
+.replace(/&lt;/g, '<')
+.replace(/&gt;/g, '>')
+.replace(/&amp;/g, '&')
+;
+code = mw_unindent(code);
+setCopy(code, '代码已复制到剪贴板');
+}
+function mw_fixinputstring(str) {
+var br = /<br\s*\/>|<br\s*>|&lt;br\s*\/?&gt;/gi;
+if(SyntaxHighlighter.config.bloggerMode == true) {
+str = str.replace(br, '\n');
+}
+if(SyntaxHighlighter.config.stripBrs == true) {
+str = str.replace(br, '');
+}
+return str;
+}
+function mw_popup(url, name, width, height, options) {
+var x = (screen.width - width) / 2,
+y = (screen.height - height) / 2
+;
+options +=	', left=' + x +
+', top=' + y +
+', width=' + width +
+', height=' + height
+;
+options = options.replace(/^,/, '');
+var win = window.open(url, name, options);
+win.focus();
+return win;
+}
+function mw_unindent(str) {
+var lines = mw_fixinputstring(str).split('\n'),
+indents = new Array(),
+regex = /^\s*/,
+min = 1000
+;
+for(var i = 0; i < lines.length && min > 0; i++) {
+var line = lines[i];
+if(mw_trim(line).length == 0) {
+continue;
+}
+var matches = regex.exec(line);
+if(matches == null) {
+return str;
+}
+min = Math.min(matches[0].length, min);
+}
+if(min > 0) {
+for(var i = 0; i < lines.length; i++) {
+lines[i] = lines[i].substr(min);
+}
+}
+return lines.join('\n');
+}
+function mw_trim(str) {
+return str.replace(/^\s+|\s+$/g, '');
+}
+function mw_get_code(highlighter) {
+
+var container = mw_findelement($('highlighter_' + highlighter.id), '.container');
+var lines = container.childNodes;
+var code = [];
+for(var i=0; i<lines.length; i++) {
+code.push(lines[i].innerText || lines[i].textContent);
+}
+code = code.join('\r');
+return code;
+
+}
+function mw_findelement(target, search, reverse) {
+if(target == null)
+return null;
+var nodes = reverse != true ? target.childNodes : [ target.parentNode ],
+propertyToFind	= { '#' : 'id', '.' : 'className' }[search.substr(0, 1)] || 'nodeName',
+expectedValue,
+found
+;
+expectedValue = propertyToFind != 'nodeName'
+? search.substr(1)
+: search.toUpperCase()
+;
+if((target[propertyToFind] || '').indexOf(expectedValue) != -1)
+return target;
+for(var i = 0; nodes && i < nodes.length && found == null; i++)
+found = mw_findelement(nodes[i], search, reverse);
+return found;
+}
+})();
+</script>
+<div id="ft" class="wp cl">
+<div id="flk" class="y">
+<p>
+<a href="http://wpa.qq.com/msgrd?V=3&Uin=406565625&Site=about%D4%C6%BF%AA%B7%A2&Menu=yes&from=discuz" target="_blank" title="QQ"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/site_qq.jpg" alt="QQ"></a><span class="pipe">|</span><a href="http://www.aboutyun.com/forum.php?mod=misc&action=showdarkroom">小黑屋</a><span class="pipe">|</span><strong><a href="http://www.aboutyun.com/" target="_blank">about云开发-学问论坛|社区-大数据云技术学习分享平台</a></strong>
+( <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备12023829号</a> )&nbsp;<a href="http://discuz.qq.com/service/security" target="_blank" title="防水墙保卫网站远离侵害"><img src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/security.png"></a>&nbsp;&nbsp;<a href="http://stats.discuz.qq.com/?ADTAG=FROUM.FOOTER.CLICK.ICON" title="腾讯分析" target="_blank"><img title="腾讯分析" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/toss_11.gif" border="0"></a><script type="text/javascript" src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/ping.js" charset="utf-8"></script><script type="text/javascript" reload="1">pgvMain({"discuzParams":{"r2":"28003825","ui":0,"rt":"forum","md":"viewthread","fi":"117","ti":"17420","pn":1,"qq":"000","logo":11},"extraParams":""});</script><!-- aboutyun.com Baidu tongji analytics --><script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F840930a0e8496e2ae52e32c06acc71db' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./Java HashMap工作原理及实现-大数据（hadoop系列）学习-about云开发_files/h.js" type="text/javascript"></script>
+</p>
+<p class="xs0">
+GMT+8, 2016-2-24 16:15<span id="debuginfo">
+, Processed in 1.047455 second(s), 33 queries
+.
+</span>
+</p>
+</div>
+<div id="frt">
+<p>Powered by <strong><a href="http://www.discuz.net/" target="_blank">Discuz!</a></strong> <em>X3.2</em> <a href="http://license.comsenz.com/?pid=1&host=www.aboutyun.com" target="_blank">Licensed</a></p>
+<p class="xs0">&#169; 2001-2013 <a href="http://www.comsenz.com/" target="_blank">Comsenz Inc.</a></p>
+</div></div>
+<div id="scrolltop" style="left: 1131px; visibility: visible;">
+<span><a href="http://www.aboutyun.com/forum.php?mod=post&action=reply&fid=117&tid=17420&extra=page%3D1&page=1" onclick="showWindow(&#39;reply&#39;, this.href)" class="replyfast" title="快速回复"><b>快速回复</b></a></span>
+<span hidefocus="true"><a title="返回顶部" onclick="window.scrollTo(&#39;0&#39;,&#39;0&#39;)" class="scrolltopa"><b>返回顶部</b></a></span>
+<span>
+<a href="http://www.aboutyun.com/forum-117-1.html" hidefocus="true" class="returnlist" title="返回列表"><b>返回列表</b></a>
+</span>
+</div>
+<script type="text/javascript">_attachEvent(window, 'scroll', function () { showTopLink(); });checkBlind();</script>
+			<div id="discuz_tips" style="display:none;"></div>
+			<script type="text/javascript">
+				var tipsinfo = '28003825|X3.2|0.6||0||0|7|1456301705|0264aefe1f9b021d4c923961a12b435d|2';
+			</script>
+			<script src="http://discuz.gtimg.cn/cloud/scripts/discuz_tips.js?v=1" type="text/javascript" charset="UTF-8"></script>
+
+</body></html>
